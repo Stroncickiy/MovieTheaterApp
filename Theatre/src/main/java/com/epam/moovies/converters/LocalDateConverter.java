@@ -3,18 +3,11 @@ package com.epam.moovies.converters;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import org.springframework.core.convert.converter.Converter;
+public final class LocalDateConverter {
+	private final static String dateFormat = "mm/dd/yyyy";
+	private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);;
 
-public final class LocalDateConverter implements Converter<String, LocalDate> {
-
-	private final DateTimeFormatter formatter;
-
-	public LocalDateConverter(String dateFormat) {
-		this.formatter = DateTimeFormatter.ofPattern(dateFormat);
-	}
-
-	@Override
-	public LocalDate convert(String source) {
+	public static LocalDate convert(String source) {
 		if (source == null || source.isEmpty()) {
 			return null;
 		}

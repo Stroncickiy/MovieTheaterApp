@@ -78,4 +78,9 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 	public Auditorium getByName(String name) {
 		return dao.getByName(name);
 	}
+
+	@Override
+	public Auditorium getById(Long auditoryId) {
+		return dao.getById(auditoryId);
+	}
 }

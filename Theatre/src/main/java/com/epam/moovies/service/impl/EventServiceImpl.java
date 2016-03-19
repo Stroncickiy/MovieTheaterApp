@@ -46,4 +46,10 @@ public class EventServiceImpl implements EventService {
 		event.setEnd(end);
 		return eventDAO.update(event);
 	}
+
+	@Override
+	public Event getById(Long eventId) {
+		return eventDAO.getById(eventId);
+		
+	}
 }

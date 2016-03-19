@@ -12,16 +12,18 @@
 	<div id="shell">
 		<jsp:include page="../header.jsp" />
 		<div id="main">
-			<br /> <a href="${pageContext.request.contextPath}/events/manage/add"
-				class="btn btn-info" role="button">Add Event</a> <a href="#"
-				class="btn btn-info" role="button">Load Events From File</a>
+			<br /> <a
+				href="${pageContext.request.contextPath}/events/manage/add"
+				class="btn btn-info">Add Event</a> <a href="#" class="btn btn-info">Load
+				Events From File</a>
 			<div id="content">
 				<div class="box">
 					<c:forEach items="${allEvents}" var="event">
 						<div class="movie">
 							<div class="movie-image">
 								<span class="play"><span class="name">${event.name}</span></span>
-								<a href="#"><img
+								<a style="z-index: 9999;"
+									href="${pageContext.request.contextPath}/event/${event.id}"><img
 									src="${pageContext.request.contextPath}/resources/css/images/movie1.jpg"
 									alt="movie" /></a>
 							</div>

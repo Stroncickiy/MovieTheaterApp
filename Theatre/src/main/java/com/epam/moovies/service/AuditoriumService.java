@@ -19,5 +19,7 @@ public interface AuditoriumService {
 
     Auditorium getByName(String name);
 
+	Auditorium getById(Long auditoryId);
+
 
 }

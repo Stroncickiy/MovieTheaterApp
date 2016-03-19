@@ -20,4 +20,6 @@ public interface EventService {
 
 	boolean assignAuditorium(Event event, Auditorium auditorium, LocalDateTime start, LocalDateTime end);
 
+	Event getById(Long eventId);
+
 }

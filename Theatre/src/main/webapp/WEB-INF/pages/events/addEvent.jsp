@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -18,52 +17,57 @@
 			<br />
 			<div id="content">
 				<div class="box ">
-					<form:form method="POST" 
-						action="/events/add">
-
+					<form method="post" action="/events/add">
 						<div class="row">
 							<div class="col-md-2">
-								<form:label path="name">Event Name</form:label>
+								<label>Event Name</label>
 							</div>
 							<div class="col-md-7">
-								<form:input path="name" />
+								<input name="name" />
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-2">
-								<form:label path="basePrice">basePrice</form:label>
+								<label>basePrice</label>
 							</div>
 							<div class="col-md-7">
-								<form:input path="basePrice" />
+								<input name="basePrice" />
 							</div>
 
 						</div>
 						<div class="row">
 							<div class="col-md-2">
-								<form:label path="rating">Rating</form:label>
+								<label>Rating</label>
 							</div>
 							<div class="col-md-7">
-								<form:select path="rating" itemValue="name" items="${ratingOptions}" />
+								<select name="rating">
+									<c:forEach var="ratingItem" items="${ratingOptions}">
+										<option value="${ratingItem}">${ratingItem}</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-2">
-								<form:label path="auditorium">Auditorium</form:label>
+								<label>Auditorium</label>
 							</div>
 							<div class="col-md-7">
-								<form:select itemValue="id" itemLabel="name" path="auditorium"
-									items="${auditoriums}" />
+								<select name="auditorium">
+									<c:forEach var="auditoriumItem" items="${auditoriums}">
+										<option value="${auditoriumItem.id}">${auditoriumItem.name}</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-2">
-								<form:label path="start">Start</form:label>
+								<label>Start</label>
 							</div>
 							<div class="col-md-7">
 								<div class="form-group">
 									<div class='input-group date' id='datetimepicker1'>
-										<form:input path="start" cssClass="form-control" />
-										<span class="input-group-addon"> <span
+										<input name="start" class="form-control" /> <span
+											class="input-group-addon"> <span
 											class="glyphicon glyphicon-calendar"></span>
 										</span>
 									</div>
@@ -77,13 +81,13 @@
 						</div>
 						<div class="row">
 							<div class="col-md-2">
-								<form:label path="end">End</form:label>
+								<label>End</label>
 							</div>
 							<div class='col-md-7'>
 								<div class="form-group">
 									<div class='input-group date' id='datetimepicker2'>
-										<form:input path="end" cssClass="form-control" />
-										<span class="input-group-addon"> <span
+										<input name="end" class="form-control" /> <span
+											class="input-group-addon"> <span
 											class="glyphicon glyphicon-calendar"></span>
 										</span>
 									</div>
@@ -96,7 +100,7 @@
 							</script>
 						</div>
 						<input type="submit" value="Submit" />
-					</form:form>
+					</form>
 
 				</div>
 			</div>

@@ -6,35 +6,42 @@
 <head>
 <title>Event</title>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="resources/css/style.css" type="text/css"
-	media="all" />
-<!--[if IE 6]>
-		<link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" />
-	<![endif]-->
-<script type="text/javascript" src="resources/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="resources/js/jquery-func.js"></script>
+<jsp:include page="../essentials/essentials.jsp" />
 </head>
 <body>
 	<div id="shell">
-		<jsp:include page="header.jsp" />
+		<jsp:include page="../header.jsp" />
 		<div id="main">
-			<div id="content">
+			<div id="content" class="bg-success">
+				<br />
+				<div class="head">
+					<h2>${event.name}</h2>
+				</div>
 				<div class="box">
-					<div class="head">
-						<h2>EVENT NAME</h2>
+					<div class="row">
+						<div class="col-md-2">Auditorium:</div>
+						<span>${event.auditorium.name}</span>
 					</div>
-					<div class="movie">
-						<div class="movie-image">
-							<span class="play"><span class="name">X-MAN</span></span> <a
-								href="#"><img src="resources/css/images/movie1.jpg"
-								alt="movie" /></a>
-						</div>
+					<div class="row">
+						<div class="col-md-2">Start:</div>
+						<span>${event.start}</span>
 					</div>
-					<div class="cl">&nbsp;</div>
+					<div class="row">
+						<div class="col-md-2">Stop:</div>
+						<span>${event.end}</span>
+					</div>
+					<div class="row">
+						<div class="col-md-2">Base price:</div>
+						<span>${event.basePrice}</span>
+					</div>
+					<div class="row">
+						<div class="col-md-2">Rating:</div>
+						<span>${event.rating}</span>
+					</div>
 				</div>
 			</div>
 		</div>
-		<jsp:include page="footer.jsp" />
+		<jsp:include page="../footer.jsp" />
 	</div>
 </body>
 </html>

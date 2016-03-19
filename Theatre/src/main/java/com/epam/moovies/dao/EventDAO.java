@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -86,8 +88,16 @@ public class EventDAO extends AbstractDAO<Event> {
 	@Override
 	public Event getById(Long key) {
 		String query = "SELECT * FROM events WHERE id=?";
-		return jdbcTemplate.queryForObject(query, (resultSet, i) -> {
-			return getEventFromRS(resultSet);
+		return jdbcTemplate.query(query, new ResultSetExtractor<Event>() {
+
+			@Override
+			public Event extractData(ResultSet rs) throws SQLException, DataAccessException {
+				if (rs.next()) {
+					return getEventFromRS(rs);
+				} else {
+					return null;
+				}
+			}
 		}, key);
 	}
 
