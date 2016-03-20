@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-<title>Event</title>
+<title>Buy Tickets For ${event.name }</title>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 <jsp:include page="../essentials/essentials.jsp" />
 </head>
@@ -38,10 +38,19 @@
 						<div class="col-md-2">Rating:</div>
 						<span>${event.rating}</span>
 					</div>
-					<div class="row">
-						<a href="${pageContext.request.contextPath}/events/book/${event.id}">Buy
-							Ticket</a>
-					</div>
+					<form
+						action="${pageContext.request.contextPath}/ticket/book/${event.id}"
+						method="post">
+						<div class="row">
+							<select multiple="multiple" name="targeseats">
+								<c:forEach items="${event.auditorium.seats}" var="seat">
+									<option style="${seat.vip?'color:red;':''}"
+										value="${seat.number}">${seat.number}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<button type="submit">Buy</button>
+					</form>
 				</div>
 			</div>
 		</div>

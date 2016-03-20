@@ -5,21 +5,22 @@ import com.epam.moovies.model.Seat;
 
 import java.util.List;
 
-
-
 public interface AuditoriumService {
 
-    void addAuditorium(Auditorium auditorium);
+	void addAuditorium(Auditorium auditorium);
 
-    List<Auditorium> getAll();
+	List<Auditorium> getAll();
 
-    int getSeatsNumber(Long id);
+	int getSeatsNumber(Long id);
 
-    List<Seat> getSeats(Long id);
+	List<Seat> getSeats(Long id);
 
-    Auditorium getByName(String name);
+	Auditorium getByName(String name);
 
 	Auditorium getById(Long auditoryId);
 
+	List<Seat> getSeatsByNumbersAndAuditorium(Long auditoriumId, Long[] seats);
+
+	List<Seat> getSeatsForAuditorium(Long auditoriumId);
 
 }

@@ -1,24 +1,30 @@
 package com.epam.moovies.service.impl;
 
-import com.epam.moovies.dao.AuditoriumDAO;
-import com.epam.moovies.model.Auditorium;
-import com.epam.moovies.model.Seat;
-import com.epam.moovies.service.AuditoriumService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.epam.moovies.dao.AuditoriumDAO;
+import com.epam.moovies.dao.SeatsDAO;
+import com.epam.moovies.model.Auditorium;
+import com.epam.moovies.model.Seat;
+import com.epam.moovies.service.AuditoriumService;
 
 @Service(value = "auditoriumService")
 public class AuditoriumServiceImpl implements AuditoriumService {
 
 	@Autowired
 	private AuditoriumDAO dao;
+
+	@Autowired
+	private SeatsDAO seatsDao;
 
 	@Value("${auditories.number}")
 	private Integer numberOfAuditoriesInProperties;
@@ -83,4 +89,14 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 	public Auditorium getById(Long auditoryId) {
 		return dao.getById(auditoryId);
 	}
+
+	@Override
+	public List<Seat> getSeatsByNumbersAndAuditorium(Long auditoriumId, Long[] seats) {
+		return seatsDao.getSeatsByNumberAndAuditorium(auditoriumId, seats);
+	}
+	@Override
+	public List<Seat> getSeatsForAuditorium(Long auditoriumId){
+		return seatsDao.getSeatsForAuditorium(auditoriumId);
+	}
+	
 }

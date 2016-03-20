@@ -88,7 +88,7 @@ public class AuditoriumDAO extends AbstractDAO<Auditorium> {
 		Auditorium auditorium = new Auditorium();
 		auditorium.setId(resultSet.getLong("id"));
 		auditorium.setName(resultSet.getString("name"));
-		auditorium.setSeats(seatsDAO.getAll());
+		auditorium.setSeats(seatsDAO.getSeatsForAuditorium(auditorium.getId()));
 		return auditorium;
 
 	}

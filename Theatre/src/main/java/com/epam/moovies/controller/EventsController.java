@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.epam.moovies.converters.LocalDateTimeConverter;
 import com.epam.moovies.enums.Rating;
@@ -59,4 +61,13 @@ public class EventsController {
 		Event createdEvent = eventService.create(newEvent);
 		return "redirect:/event/" + createdEvent.getId();
 	}
+
+	@RequestMapping("book/{eventId}")
+	public ModelAndView openBookTicketForEventPage(@PathVariable("eventId") Long eventId) {
+		ModelAndView openBookTicketForEventModelAndView = new ModelAndView("events/book");
+		Event event = eventService.getById(eventId);
+		openBookTicketForEventModelAndView.addObject("event", event);
+		return openBookTicketForEventModelAndView;
+	}
+
 }

@@ -90,6 +90,14 @@ public class SeatsDAO extends AbstractDAO<Seat> {
 		return seat;
 	}
 
+	public List<Seat> getSeatsByNumberAndAuditorium(Long auditoriumId, Long[] seatIds) {
+		String query = "SELECT * FROM seats s  WHERE auditory=? AND number IN ?";
+		List<Seat> seatsList = jdbcTemplate.query(query, (resultSet, i) -> {
+			return getSeatFromRS(resultSet);
+		}, auditoriumId, seatIds);
+		return seatsList;
+	}
+
 	public void assignSeatsWithTicket(List<Seat> bookedSeats, Long ticketId) {
 		String query = "INSERT INTO seats_tickets (seat_number,auditory_id,ticket_id) VALUES (?,?,?)";
 		jdbcTemplate.batchUpdate(query, new BatchPreparedStatementSetter() {
@@ -106,5 +114,13 @@ public class SeatsDAO extends AbstractDAO<Seat> {
 			}
 		});
 
+	}
+
+	public List<Seat> getSeatsForAuditorium(Long auditoriumId) {
+		String query = "SELECT * FROM seats s  WHERE auditory=? ";
+		List<Seat> seatsList = jdbcTemplate.query(query, (resultSet, i) -> {
+			return getSeatFromRS(resultSet);
+		}, auditoriumId);
+		return seatsList;
 	}
 }
