@@ -30,4 +30,11 @@ public class TicketsController {
 		return modelAndView;
 	}
 
+	@RequestMapping(path = "/my/get", produces = { "application/pdf" })
+	public ModelAndView getTicketsAsFile() {
+		User user = userService.getAll().get(0);
+		List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
+		return new ModelAndView("ticketsPdfView", "tickets", ticketsForUser);
+	}
+
 }

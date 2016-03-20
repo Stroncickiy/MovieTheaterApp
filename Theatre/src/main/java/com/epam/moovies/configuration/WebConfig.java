@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 
 @Configuration
 @ComponentScan(basePackages = { "com.epam.moovies.controller" })
@@ -20,6 +21,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public ViewResolver viewResolver() {
+		ResourceBundleViewResolver resourceBundleViewResolver = new ResourceBundleViewResolver();
+		resourceBundleViewResolver.setOrder(0);
+		resourceBundleViewResolver.setBasename("views");
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
 		viewResolver.setPrefix("/WEB-INF/pages/");
