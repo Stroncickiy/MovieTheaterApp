@@ -15,6 +15,7 @@ import com.epam.moovies.service.UserService;
 @Controller
 @RequestMapping("tickets")
 public class TicketsController {
+
 	@Autowired
 	private UserService userService;
 
@@ -36,5 +37,7 @@ public class TicketsController {
 		List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
 		return new ModelAndView("ticketsPdfView", "tickets", ticketsForUser);
 	}
+
+
 
 }

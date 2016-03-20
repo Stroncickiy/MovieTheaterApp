@@ -11,27 +11,27 @@ import com.epam.moovies.filter.CORSFilter;
 @SpringBootApplication
 public class MovieTheatreInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { SecurityConfig.class,ApplicationConfig.class };
-	}
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[]{SecurityConfig.class};
+    }
 
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { WebConfig.class };
-	}
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[]{WebConfig.class};
+    }
 
-	@Override
-	protected String[] getServletMappings() {
-		return new String[] { "/*" };
-	}
+    @Override
+    protected String[] getServletMappings() {
+        return new String[]{"/*"};
+    }
 
-	@Override
-	protected Filter[] getServletFilters() {
-		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-		characterEncodingFilter.setEncoding("UTF-8");
-		Filter[] singleton = { new CORSFilter(), characterEncodingFilter };
-		return singleton;
-	}
+    @Override
+    protected Filter[] getServletFilters() {
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        Filter[] singleton = {new CORSFilter(), characterEncodingFilter};
+        return singleton;
+    }
 
 }

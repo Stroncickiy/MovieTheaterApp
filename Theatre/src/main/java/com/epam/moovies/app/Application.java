@@ -1,5 +1,6 @@
 package com.epam.moovies.app;
 
+import com.epam.moovies.configuration.ApplicationConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -11,19 +12,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import com.epam.moovies.configuration.MovieTheatreInitializer;
 
-@EnableAutoConfiguration
-@SpringBootApplication
-@ComponentScan(basePackages = "com.epam.moovies")
-@EnableAspectJAutoProxy
+
 public class Application {
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(Application.class).child(MovieTheatreInitializer.class).run(args);
+		new SpringApplicationBuilder(ApplicationConfig.class).child(MovieTheatreInitializer.class).run(args);
 	}
 
-	@Bean
-	public EmbeddedServletContainerFactory servletContainer() {
-		TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-		return factory;
-	}
 }

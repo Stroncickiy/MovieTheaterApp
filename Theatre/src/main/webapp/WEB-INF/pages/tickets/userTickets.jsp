@@ -13,7 +13,7 @@
 		<jsp:include page="../header.jsp" />
 		<div id="main">
 			<div id="content" class="bg-success ">
-				<a href="${pageContext.request.contextPath}/tickets/my/pdf"
+				<a href="${pageContext.request.contextPath}/tickets/my/get?format=pdf"
 					class="btn btn-info">Download as PDF</a>
 				<table class="table table-striped ">
 					<thead>

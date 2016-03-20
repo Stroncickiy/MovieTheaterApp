@@ -1,5 +1,6 @@
 package com.epam.moovies.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -28,6 +29,12 @@ public class MainPageController {
 		List<Event> nextEvents = eventService.getForDateRange(LocalDate.now(), toDate);
 		indexModelAndView.addObject("nextEvents", nextEvents);
 		return indexModelAndView;
+	}
+
+	@RequestMapping(value = "/errorTest",method = {RequestMethod.GET})
+	public void openPageWithException() throws IOException {
+		throw  new IOException("some Error occured in this controller");
+
 	}
 
 }
