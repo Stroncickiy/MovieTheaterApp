@@ -2,7 +2,6 @@ package com.epam.moovies.service.impl;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,16 +32,17 @@ public class BookingServiceImpl implements BookingService {
     }
 
     public List<Ticket> getTicketsForEvent(Event event) {
-        List<Ticket> all = ticketDAO.getAll();
-        List<Ticket> ticketsOfEvent =  all.stream().filter(t -> t.getEvent().equals(event)).collect(Collectors.toList());
-        return ticketsOfEvent;
+        return ticketDAO.getTicketsForEvent(event);
     }
 
     @Override
     public List<Ticket> getTicketsForUser(User user) {
-        List<Ticket> all = ticketDAO.getAll();
-        List<Ticket> ticketsOfUser =  all.stream().filter(t -> t.getCustomer().equals(user)).collect(Collectors.toList());
-        return ticketsOfUser;
+        return ticketDAO.getTicketsForUser(user);
     }
+
+	@Override
+	public Long getNumberOfTicketsForUser(User customer) {
+		return ticketDAO.getNumberOfTicketsForUser(customer);
+	}
 
 }

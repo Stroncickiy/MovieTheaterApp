@@ -12,17 +12,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class DiscountAspect {
 
-    @Pointcut("execution(* com.epam.moovies.service.DiscountService.evaluateAndSetTicketPrice(..))")
-    public void getDiscountPointcut() {
+	@Pointcut("execution(* com.epam.moovies.service.DiscountService.evaluateAndSetTicketPrice(..))")
+	public void getDiscountPointcut() {
 
-    }
+	}
 
-    @AfterReturning(pointcut = "getDiscountPointcut()",returning = "returnedValue")
-    public void countAfterCalling(JoinPoint joinPoint,Object returnedValue) {
-        Ticket ticket = (Ticket) returnedValue;
-        new DiscountProvision(ticket);
+	@AfterReturning(pointcut = "getDiscountPointcut()", returning = "returnedValue")
+	public void countAfterCalling(JoinPoint joinPoint, Object returnedValue) {
+		Ticket ticket = (Ticket) returnedValue;
+		new DiscountProvision(ticket);
 
-    }
-
+	}
 
 }

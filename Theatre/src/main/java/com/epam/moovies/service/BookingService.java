@@ -6,14 +6,15 @@ import com.epam.moovies.model.User;
 
 import java.util.List;
 
-
 public interface BookingService {
-    Long getTicketPrice(Ticket ticket);
+	Long getTicketPrice(Ticket ticket);
 
-    boolean bookTicket(Ticket ticket);
+	boolean bookTicket(Ticket ticket);
 
-    List<Ticket> getTicketsForEvent(Event event);
+	List<Ticket> getTicketsForEvent(Event event);
 
-    List<Ticket> getTicketsForUser(User user);
+	List<Ticket> getTicketsForUser(User user);
+
+	Long getNumberOfTicketsForUser(User customer);
 
 }

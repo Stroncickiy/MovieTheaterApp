@@ -29,15 +29,17 @@ public class DiscountServiceImpl implements DiscountService {
 					break;
 				} else {
 					ticket.setDiscountStrategy(DiscountStrategy.NO_DISCOUNT);
-					ticket.setDiscountAmount(0L);
+					discount = 0L;
 				}
 			}
 
 		}
 		if ((discount > 0) && (discount > realPrice)) {
 			ticket.setTotalPrice(0L);
+			ticket.setDiscountAmount(realPrice);
 		} else {
 			ticket.setTotalPrice(realPrice - discount);
+			ticket.setDiscountAmount(discount);
 		}
 		return ticket;
 	}
