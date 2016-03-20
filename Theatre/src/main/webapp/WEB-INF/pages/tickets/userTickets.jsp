@@ -12,8 +12,8 @@
 	<div id="shell">
 		<jsp:include page="../header.jsp" />
 		<div id="main">
-			<div id="content" class="bg-success">
-				<table>
+			<div id="content" class="bg-success ">
+				<table class="table table-striped ">
 					<thead>
 						<tr>
 							<th>id</th>

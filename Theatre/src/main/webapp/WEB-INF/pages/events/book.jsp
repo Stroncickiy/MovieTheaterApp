@@ -42,7 +42,7 @@
 						action="${pageContext.request.contextPath}/ticket/book/${event.id}"
 						method="post">
 						<div class="row">
-							<select multiple="multiple" name="targeseats">
+							<select multiple="multiple" name="targetSeats">
 								<c:forEach items="${event.auditorium.seats}" var="seat">
 									<option style="${seat.vip?'color:red;':''}"
 										value="${seat.number}">${seat.number}</option>

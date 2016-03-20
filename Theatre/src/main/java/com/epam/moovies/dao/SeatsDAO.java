@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.List;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.epam.moovies.model.Seat;
@@ -91,10 +93,33 @@ public class SeatsDAO extends AbstractDAO<Seat> {
 	}
 
 	public List<Seat> getSeatsByNumberAndAuditorium(Long auditoriumId, Long[] seatIds) {
-		String query = "SELECT * FROM seats s  WHERE auditory=? AND number IN ?";
-		List<Seat> seatsList = jdbcTemplate.query(query, (resultSet, i) -> {
-			return getSeatFromRS(resultSet);
-		}, auditoriumId, seatIds);
+		String query = "SELECT * FROM seats s  WHERE auditory=? AND number IN (";
+		StringBuilder queryBuilder = new StringBuilder(query);
+		for (int i = 0; i < seatIds.length; i++) {
+			queryBuilder.append("?");
+			if (i != seatIds.length - 1) {
+				queryBuilder.append(",");
+			}
+		}
+		queryBuilder.append(")");
+		query = queryBuilder.toString();
+		List<Seat> seatsList = jdbcTemplate.query(query, new PreparedStatementSetter() {
+
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setLong(1, auditoriumId);
+				for (int i = 0; i < seatIds.length; i++) {
+					ps.setLong(i + 2, seatIds[i]);
+				}
+			}
+
+		}, new RowMapper<Seat>() {
+
+			@Override
+			public Seat mapRow(ResultSet rs, int i) throws SQLException {
+				return getSeatFromRS(rs);
+			}
+		});
 		return seatsList;
 	}
 

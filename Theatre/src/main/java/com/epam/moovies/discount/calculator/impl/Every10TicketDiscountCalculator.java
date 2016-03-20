@@ -4,9 +4,10 @@ import com.epam.moovies.discount.calculator.DiscountCalculator;
 import com.epam.moovies.model.Ticket;
 import com.epam.moovies.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class Every10TicketDiscountCalculator implements DiscountCalculator {
 
 

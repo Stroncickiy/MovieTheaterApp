@@ -50,7 +50,7 @@ public class BookingController {
 		ticket.setBookedSeats(
 				auditoriumService.getSeatsByNumbersAndAuditorium(targetEvent.getAuditorium().getId(), chosenSeats));
 		bookingService.bookTicket(ticket);
-		return "tickets/userTickets";
+		return "redirect:/tickets/my";
 	}
 
 }

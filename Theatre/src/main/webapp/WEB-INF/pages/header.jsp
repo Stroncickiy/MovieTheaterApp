@@ -16,7 +16,7 @@
 	<div id="navigation">
 		<ul>
 			<li><a class="active" href="#">HOME</a></li>
-			<li><a href="#">MY TICKETS</a></li>
+			<li><a href="${pageContext.request.contextPath}/tickets/my">MY TICKETS</a></li>
 			<li><a href="${pageContext.request.contextPath}/events/manage">MANAGE EVENTS</a></li>
 		</ul>
 	</div>

@@ -63,4 +63,9 @@ public class Seat {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "" + number + (isVip() ? "v" : "");
+	}
+
 }

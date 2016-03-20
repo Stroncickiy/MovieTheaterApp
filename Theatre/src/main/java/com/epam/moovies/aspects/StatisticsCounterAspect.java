@@ -1,16 +1,16 @@
 package com.epam.moovies.aspects;
 
-import com.epam.moovies.model.EventStatistics;
-import com.epam.moovies.model.Ticket;
-import com.epam.moovies.service.EventStatisticsService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Aspect
+import com.epam.moovies.model.EventStatistics;
+import com.epam.moovies.model.Ticket;
+import com.epam.moovies.service.EventStatisticsService;
+
+
 @Component
 public class StatisticsCounterAspect {
 

@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+@Component
 public class BirthdayStrategyDiscountCalulator implements DiscountCalculator {
 
     public Long getDiscount(Ticket ticket) {

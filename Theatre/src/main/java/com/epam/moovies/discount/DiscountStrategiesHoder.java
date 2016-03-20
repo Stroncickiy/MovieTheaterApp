@@ -2,12 +2,13 @@ package com.epam.moovies.discount;
 
 import com.epam.moovies.discount.calculator.DiscountCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 
-
+@Component
 public class DiscountStrategiesHoder {
 
     @Autowired
