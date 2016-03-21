@@ -14,22 +14,32 @@
 		<div id="main">
 			<br /> <a
 				href="${pageContext.request.contextPath}/events/manage/add"
-				class="btn btn-info">Add Event</a> <a href="#" class="btn btn-info">Load
-				Events From File</a>
-			<div id="content">
-				<div class="box">
-					<c:forEach items="${allEvents}" var="event">
-						<div class="movie">
-							<div class="movie-image">
-								<span class="play"><span class="name">${event.name}</span></span>
-								<a style="z-index: 9999;"
-									href="${pageContext.request.contextPath}/event/${event.id}"><img
-									src="${pageContext.request.contextPath}/resources/css/images/movie1.jpg"
-									alt="movie" /></a>
-							</div>
+				class="btn btn-info">Add Event</a> <a
+				href="${pageContext.request.contextPath}/events/all/get"
+				class="btn btn-info">Load Events in Xml</a>
+				<br></br>
+			<div class="row">
+				<form action="${pageContext.request.contextPath}/events/loadFromXml"
+					enctype="multipart/form-data" method="post">
+					<input type="file" name="fileWithEvents" />
+					<button type="submit" class="btn btn-info">Add Events
+						From File</button>
+				</form>
+			</div>
+
+			<br></br>
+			<div id="content" class="bg-success row" style="height: 100%">
+				<c:forEach items="${allEvents}" var="event">
+					<div class="col-md-3">
+						<div class="movie-image">
+							<span class="play"><span class="name">${event.name}</span></span>
+							<a style="z-index: 9999;"
+								href="${pageContext.request.contextPath}/event/${event.id}"><img
+								src="${pageContext.request.contextPath}/resources/css/images/movie${allEvents.indexOf(event)+1}.jpg"
+								alt="movie" /></a>
 						</div>
-					</c:forEach>
-				</div>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 		<jsp:include page="../footer.jsp" />

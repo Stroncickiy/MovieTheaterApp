@@ -6,35 +6,33 @@
 <head>
 <title>Movie Theater</title>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="resources/css/style.css" type="text/css"
-	media="all" />
-<!--[if IE 6]>
-		<link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" />
-	<![endif]-->
-<script type="text/javascript" src="resources/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="resources/js/jquery-func.js"></script>
+<jsp:include page="../essentials/essentials.jsp" />
 </head>
 <body>
 	<div id="shell">
-		<jsp:include page="header.jsp" />
+		<jsp:include page="../header.jsp" />
 		<div id="main">
-			<div id="content">
-				<div class="box">
-					<div class="head">
-						<h2>ALL EVENTS</h2>
-					</div>
-					<div class="movie">
-						<div class="movie-image">
-							<span class="play"><span class="name">X-MAN</span></span> <a
-								href="#"><img src="resources/css/images/movie1.jpg"
-								alt="movie" /></a>
-						</div>
-					</div>
-					<div class="cl">&nbsp;</div>
+			<div id="content" class="bg-success" style="height:  100%">
+				<div class="head">
+					<h2>ALL EVENTS</h2>
 				</div>
+				<div class="row">
+					<c:forEach items="${events}" var="event">
+						<div class="col-md-3">
+							<div class="movie-image">
+								<span class="play"><span class="name">${event.name}</span></span>
+								<a style="z-index: 9999;"
+									href="${pageContext.request.contextPath}/event/${event.id}"><img
+									src="${pageContext.request.contextPath}/resources/css/images/movie${events.indexOf(event)+1}.jpg"
+									alt="movie" /></a>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+
 			</div>
 		</div>
-		<jsp:include page="footer.jsp" />
+		<jsp:include page="../footer.jsp" />
 	</div>
 </body>
 </html>
