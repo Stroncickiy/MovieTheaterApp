@@ -32,16 +32,22 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 	@Autowired
 	private Environment environment;
 
+	@Value("${auditories.initFromProperties}")
+	private boolean initFromProperties;
+
 	@PostConstruct
 	public void init() {
-		for (int i = 1; i <= numberOfAuditoriesInProperties; i++) {
-			Auditorium parsedAuditoriumFromProperties = parseAuditoriumFromProperties(i);
-			String name = parsedAuditoriumFromProperties.getName();
-			if (dao.getByName(name) == null) {
-				addAuditorium(parsedAuditoriumFromProperties);
+		if (initFromProperties) {
+			for (int i = 1; i <= numberOfAuditoriesInProperties; i++) {
+				Auditorium parsedAuditoriumFromProperties = parseAuditoriumFromProperties(i);
+				String name = parsedAuditoriumFromProperties.getName();
+				if (dao.getByName(name) == null) {
+					addAuditorium(parsedAuditoriumFromProperties);
+				}
 			}
+		} else {
+			System.out.println("Initialization of auditories from properties skipped");
 		}
-
 	}
 
 	private Auditorium parseAuditoriumFromProperties(int auditoryNumber) {
@@ -94,9 +100,10 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 	public List<Seat> getSeatsByNumbersAndAuditorium(Long auditoriumId, Long[] seats) {
 		return seatsDao.getSeatsByNumberAndAuditorium(auditoriumId, seats);
 	}
+
 	@Override
-	public List<Seat> getSeatsForAuditorium(Long auditoriumId){
+	public List<Seat> getSeatsForAuditorium(Long auditoriumId) {
 		return seatsDao.getSeatsForAuditorium(auditoriumId);
 	}
-	
+
 }
