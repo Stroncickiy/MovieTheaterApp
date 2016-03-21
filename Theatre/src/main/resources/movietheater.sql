@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `movietheatre` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `movietheatre`;
+CREATE DATABASE  IF NOT EXISTS `movietheater` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `movietheater`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost    Database: movietheatre
+-- Host: localhost    Database: movietheater
 -- ------------------------------------------------------
 -- Server version	5.7.11-log
 
