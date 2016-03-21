@@ -14,28 +14,22 @@
 		<!-- Main -->
 		<div id="main">
 			<!-- Content -->
-			<div id="content">
-				<div class="box">
-					<div class="head">
-						<h2>SOON IN THEATER</h2>
-						<p class="text-right">
-							<a href="#">See all</a>
-						</p>
-					</div>
-					<div class="row">
-						<c:forEach items="${nextEvents}" var="event">
-							<div class="col-md-4">
-								<div class="movie">
-									<div class="movie-image">
-										<span class="play"><span class="name">${event.name}</span></span>
-										<a href="#"><img src="resources/css/images/movie1.jpg"
-											alt="movie" /></a>
-									</div>
-								</div>
+			<div id="content" class="bg-success" style="height: 100%">
+				<div class="head">
+					<h2>ALL EVENTS</h2>
+				</div>
+				<div class="row">
+					<c:forEach items="${events}" var="event">
+						<div class="col-md-3">
+							<div class="movie-image">
+								<span class="play"><span class="name">${event.name}</span></span>
+								<a style="z-index: 9999;"
+									href="${pageContext.request.contextPath}/event/${event.id}"><img
+									src="${pageContext.request.contextPath}/resources/css/images/movie${events.indexOf(event)+1}.jpg"
+									alt="movie" /></a>
 							</div>
-						</c:forEach>
-
-					</div>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

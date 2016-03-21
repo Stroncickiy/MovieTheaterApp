@@ -39,7 +39,7 @@
 						<span>${event.rating}</span>
 					</div>
 					<div class="row">
-						<a href="${pageContext.request.contextPath}/events/book/${event.id}">Buy
+						<a class="btn btn-info"  href="${pageContext.request.contextPath}/events/book/${event.id}">Buy
 							Ticket</a>
 					</div>
 				</div>

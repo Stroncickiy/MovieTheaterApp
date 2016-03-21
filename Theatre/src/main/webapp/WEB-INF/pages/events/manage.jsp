@@ -19,7 +19,7 @@
 				class="btn btn-info">Load Events in Xml</a>
 				<br></br>
 			<div class="row">
-				<form action="${pageContext.request.contextPath}/events/loadFromXml"
+				<form action="${pageContext.request.contextPath}/events/loadFromFile"
 					enctype="multipart/form-data" method="post">
 					<input type="file" name="fileWithEvents" />
 					<button type="submit" class="btn btn-info">Add Events

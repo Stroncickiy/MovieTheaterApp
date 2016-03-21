@@ -1,6 +1,6 @@
 <div id="header">
 	<h1 id="logo">
-		<a href="#">Movie Hunter</a>
+		<a href="${pageContext.request.contextPath}/">Movie Hunter</a>
 	</h1>
 	<div class="social">
 		<span>FOLLOW US ON:</span>

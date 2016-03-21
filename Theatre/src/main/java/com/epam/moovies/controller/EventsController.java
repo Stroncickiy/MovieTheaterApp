@@ -35,7 +35,7 @@ public class EventsController {
 	@Autowired
 	private EventService eventService;
 
-	@RequestMapping("all")
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ModelAndView openAllEvents() {
 		ModelAndView mav = new ModelAndView("events/allEvents");
 		mav.addObject("events", eventService.getAll());
@@ -50,10 +50,10 @@ public class EventsController {
 		for (Event event : events) {
 			eventService.create(event);
 		}
-		return "redirect:events/all";
+		return "redirect:/events/all";
 	}
 
-	@RequestMapping(value = "all/get", method = RequestMethod.GET)
+	@RequestMapping(value = "/all/get", method = RequestMethod.GET)
 	public void getEventsInXml(HttpServletResponse response) throws IOException {
 		List<Event> all = eventService.getAll();
 		XStream xStream = new XStream(new StaxDriver());
