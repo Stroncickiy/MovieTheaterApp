@@ -1,7 +1,11 @@
 server:
     port: 8080
     contextPath: /
-    
+    app:
+      disable-default-exception-handling: true
+    error:
+      whitelabel:
+        enabled: false
 logging:
   level:
     org.springframework.security: ERROR

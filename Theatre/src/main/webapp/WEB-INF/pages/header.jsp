@@ -20,6 +20,7 @@
 					TICKETS</a></li>
 			<li><a href="${pageContext.request.contextPath}/events/manage">MANAGE
 					EVENTS</a></li>
+			<li><a href="${pageContext.request.contextPath}/witherror">PAGE WITH ERROR</a></li>
 		</ul>
 	</div>
 	<!-- end Navigation -->

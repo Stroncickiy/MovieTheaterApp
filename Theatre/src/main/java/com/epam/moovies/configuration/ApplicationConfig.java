@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
@@ -29,7 +30,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import com.epam.moovies.service.UserDetailsServiceImpl;
 
 @SpringBootApplication
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 @ComponentScan(basePackages = "com.epam.moovies")
 @EnableAspectJAutoProxy
 @PropertySources({ @PropertySource("classpath:auditories.properties"),

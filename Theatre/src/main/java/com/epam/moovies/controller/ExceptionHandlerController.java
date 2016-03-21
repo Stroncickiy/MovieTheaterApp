@@ -1,7 +1,9 @@
 package com.epam.moovies.controller;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.AnnotationUtils;
 
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -15,8 +17,9 @@ import java.io.StringWriter;
 
 
 @ControllerAdvice
+@WebAppConfiguration
 public class ExceptionHandlerController {
-    public static final String DEFAULT_ERROR_VIEW = "error";
+    public static final String DEFAULT_ERROR_VIEW = "stacktrace";
 
     @ExceptionHandler(value = Exception.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {

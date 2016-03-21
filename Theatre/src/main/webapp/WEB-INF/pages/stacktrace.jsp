@@ -13,12 +13,12 @@
     <jsp:include page="header.jsp"/>
     <!-- Main -->
     <div id="main">
-        <div class="row">
+        <div class="row  bg-success">
             <h4>There are exception occured </h4>
             <br>
-            <h4>On page${url}</h4>
+            <h4> On page ${url}</h4>
             <br>
-            <h4>Full StackTrace</h4>
+            <h4> Full StackTrace</h4>
             <code>${stackTrace}</code>
 
         </div>
