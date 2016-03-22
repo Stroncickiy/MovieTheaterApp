@@ -1,3 +1,2 @@
-1. change port of your MySql server to appropriate	
-2. change username and password 
-3. mvn spring-boot:run
+1. in src/resources  open environment.properties file and point to your mysql server bin folder and fill your credentials
+2. open start.bat
