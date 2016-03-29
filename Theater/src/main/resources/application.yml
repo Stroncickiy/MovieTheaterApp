@@ -6,6 +6,9 @@ server:
     error:
       whitelabel:
         enabled: false
+endpoints:
+      jmx:
+        enabled: false
 logging:
   level:
     org.springframework.security: ERROR
