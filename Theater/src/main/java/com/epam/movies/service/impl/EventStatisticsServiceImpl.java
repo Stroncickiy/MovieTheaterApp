@@ -1,6 +1,7 @@
 package com.epam.movies.service.impl;
 
 import com.epam.movies.dao.EventStatisticsDAO;
+import com.epam.movies.dao.impl.EventStatisticsDAOImpl;
 import com.epam.movies.model.EventStatistics;
 import com.epam.movies.service.EventStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class EventStatisticsServiceImpl implements EventStatisticsService {
 	}
 
 	@Override
-	public boolean updateEventStatistics(EventStatistics statistics) {
-		return eventStatisticsDAO.update(statistics);
+	public void updateEventStatistics(EventStatistics statistics) {
+		 eventStatisticsDAO.update(statistics);
 	}
 
 	@Override

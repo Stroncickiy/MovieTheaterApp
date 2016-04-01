@@ -23,8 +23,8 @@ public class EventServiceImpl implements EventService {
 		return eventDAO.add(event);
 	}
 
-	public boolean remove(Long id) {
-		return eventDAO.remove(id);
+	public void remove(Long id) {
+		 eventDAO.remove(id);
 	}
 
 	public Event getByName(String name) {
@@ -39,11 +39,11 @@ public class EventServiceImpl implements EventService {
 		return eventDAO.getForDateRange(from, to);
 	}
 
-	public boolean assignAuditorium(Event event, Auditorium auditorium, LocalDateTime start, LocalDateTime end) {
+	public void assignAuditorium(Event event, Auditorium auditorium, LocalDateTime start, LocalDateTime end) {
 		event.setAuditorium(auditorium);
 		event.setStart(start);
 		event.setEnd(end);
-		return eventDAO.update(event);
+		 eventDAO.update(event);
 	}
 
 	@Override

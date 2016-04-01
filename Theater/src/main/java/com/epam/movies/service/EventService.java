@@ -10,7 +10,7 @@ import java.util.List;
 public interface EventService {
 	Event create(Event event);
 
-	boolean remove(Long id);
+	void remove(Long id);
 
 	Event getByName(String name);
 
@@ -18,7 +18,7 @@ public interface EventService {
 
 	List<Event> getForDateRange(LocalDate from, LocalDate to);
 
-	boolean assignAuditorium(Event event, Auditorium auditorium, LocalDateTime start, LocalDateTime end);
+	void assignAuditorium(Event event, Auditorium auditorium, LocalDateTime start, LocalDateTime end);
 
 	Event getById(Long eventId);
 

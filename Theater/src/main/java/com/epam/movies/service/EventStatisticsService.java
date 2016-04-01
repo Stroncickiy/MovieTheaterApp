@@ -9,7 +9,7 @@ public interface EventStatisticsService {
     List<com.epam.movies.model.EventStatistics> getAllEventQueries();
     EventStatistics add(EventStatistics statisticsToAdd);
     boolean isStatisticsForEventExists(String name);
-    boolean updateEventStatistics(EventStatistics statistics);
+    void updateEventStatistics(EventStatistics statistics);
     EventStatistics getStaticsticsForEventByEventName(String eventName);
 
 }

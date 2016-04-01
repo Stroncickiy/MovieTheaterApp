@@ -2,6 +2,7 @@ package com.epam.movies.service.impl;
 
 
 import com.epam.movies.dao.TicketDAO;
+import com.epam.movies.dao.impl.TicketDAOImpl;
 import com.epam.movies.model.Event;
 import com.epam.movies.model.Ticket;
 import com.epam.movies.model.User;

@@ -12,7 +12,7 @@ public interface UserService {
 
 	User register(User user);
 
-    boolean remove(long id);
+    void remove(long id);
 
     User getById(long id);
 
@@ -26,6 +26,6 @@ public interface UserService {
 
     boolean isUserExist(User user);
 
-    boolean update(User user);
+    void update(User user);
 
 }
