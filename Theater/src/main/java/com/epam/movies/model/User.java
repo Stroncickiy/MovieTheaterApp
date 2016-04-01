@@ -95,12 +95,7 @@ public class User {
         User user = (User) o;
         if (enabled != user.enabled) return false;
         if (id != null ? !id.equals(user.id) : user.id != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (birthDate != null ? !birthDate.equals(user.birthDate) : user.birthDate != null) return false;
-        return userRoles != null ? userRoles.equals(user.userRoles) : user.userRoles == null;
+        return password != null ? password.equals(user.password) : user.password == null && (firstName != null ? firstName.equals(user.firstName) : user.firstName == null && (lastName != null ? lastName.equals(user.lastName) : user.lastName == null && (email != null ? email.equals(user.email) : user.email == null && (birthDate != null ? birthDate.equals(user.birthDate) : user.birthDate == null && (userRoles != null ? userRoles.equals(user.userRoles) : user.userRoles == null)))));
 
     }
 

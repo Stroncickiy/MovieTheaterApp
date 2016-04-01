@@ -57,7 +57,7 @@ public class TicketDAOImpl implements TicketDAO {
     @Override
     public void update(Ticket item) {
         String query = "UPDATE  tickets SET customerId=?,eventId=?,totalPrice=?,realPrice=?,discountStrategy=?,dicountAmount=? WHERE id=?";
-        int updated = jdbcTemplate.update(connection -> {
+        jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, item.getCustomer().getId());
             preparedStatement.setLong(2, item.getEvent().getId());
@@ -73,7 +73,7 @@ public class TicketDAOImpl implements TicketDAO {
     @Override
     public void remove(Long key) {
         String query = "DELETE FROM tickets  WHERE id=? ";
-        int removed = jdbcTemplate.update(connection -> {
+        jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, key);
             return preparedStatement;
@@ -83,10 +83,9 @@ public class TicketDAOImpl implements TicketDAO {
     @Override
     public List<Ticket> getAll() {
         String query = "SELECT * FROM tickets ";
-        List<Ticket> ticketsList = jdbcTemplate.query(query, (resultSet, i) -> {
+        return jdbcTemplate.query(query, (resultSet, i) -> {
             return getTicketFromRS(resultSet);
         });
-        return ticketsList;
     }
 
     @Override
@@ -113,26 +112,23 @@ public class TicketDAOImpl implements TicketDAO {
 
     public List<Ticket> getTicketsForUser(User customer) {
         String query = "SELECT * FROM tickets WHERE customerId=? ";
-        List<Ticket> ticketsList = jdbcTemplate.query(query, (resultSet, i) -> {
+        return jdbcTemplate.query(query, (resultSet, i) -> {
             return getTicketFromRS(resultSet);
         }, customer.getId());
-        return ticketsList;
     }
 
     public List<Ticket> getTicketsForEvent(Event event) {
         String query = "SELECT * FROM tickets WHERE eventId=? ";
-        List<Ticket> ticketsList = jdbcTemplate.query(query, (resultSet, i) -> {
+        return jdbcTemplate.query(query, (resultSet, i) -> {
             return getTicketFromRS(resultSet);
         }, event.getId());
-        return ticketsList;
     }
 
     public Long getNumberOfTicketsForUser(User customer) {
         String query = "SELECT COUNT(*) FROM tickets WHERE customerId=? ";
-        Long ticketsNumber = jdbcTemplate.queryForObject(query, (resultSet, i) -> {
+        return jdbcTemplate.queryForObject(query, (resultSet, i) -> {
             return resultSet.getLong(1);
         }, customer.getId());
-        return ticketsNumber;
 
     }
 

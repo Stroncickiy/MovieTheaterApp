@@ -95,9 +95,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         ProcessBuilder restoreDbFromFile = new ProcessBuilder("cmd", "/c", "start", restoreDbBatFile.getAbsolutePath(),
                 serverLocationFolder, dbHost, dbUserName, dbPassword, dbName, source);
 
-        boolean dbRestored = ProcessExecutor.executeProcess(restoreDbFromFile, "db restored",
+        return ProcessExecutor.executeProcess(restoreDbFromFile, "db restored",
                 "fail while restoring db");
-        return dbRestored;
     }
 
     @Bean
@@ -123,8 +122,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public EmbeddedServletContainerFactory servletContainer() {
-        TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-        return factory;
+        return new TomcatEmbeddedServletContainerFactory();
     }
 
     @Bean

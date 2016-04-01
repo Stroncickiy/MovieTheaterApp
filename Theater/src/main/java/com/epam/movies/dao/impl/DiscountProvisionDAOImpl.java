@@ -4,7 +4,6 @@ import com.epam.movies.dao.DiscountProvisionDAO;
 import com.epam.movies.model.DiscountProvision;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Repository

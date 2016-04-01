@@ -80,17 +80,7 @@ public class Event {
 
 		if (Id != null ? !Id.equals(event.Id) : event.Id != null)
 			return false;
-		if (name != null ? !name.equals(event.name) : event.name != null)
-			return false;
-		if (basePrice != null ? !basePrice.equals(event.basePrice) : event.basePrice != null)
-			return false;
-		if (rating != event.rating)
-			return false;
-		if (auditorium != null ? !auditorium.equals(event.auditorium) : event.auditorium != null)
-			return false;
-		if (start != null ? !start.equals(event.start) : event.start != null)
-			return false;
-		return end != null ? end.equals(event.end) : event.end == null;
+		return name != null ? name.equals(event.name) : event.name == null && (basePrice != null ? basePrice.equals(event.basePrice) : event.basePrice == null && rating == event.rating && (auditorium != null ? auditorium.equals(event.auditorium) : event.auditorium == null && (start != null ? start.equals(event.start) : event.start == null && (end != null ? end.equals(event.end) : event.end == null))));
 
 	}
 

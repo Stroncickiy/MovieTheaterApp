@@ -4,9 +4,7 @@ import com.epam.movies.dao.EventDAO;
 import com.epam.movies.enums.Rating;
 import com.epam.movies.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -72,24 +70,19 @@ public class EventDAOImpl implements EventDAO {
     @Override
     public List<Event> getAll() {
         String query = "SELECT * FROM events ";
-        List<Event> eventsList = jdbcTemplate.query(query, (resultSet, i) -> {
+        return jdbcTemplate.query(query, (resultSet, i) -> {
             return getEventFromRS(resultSet);
         });
-        return eventsList;
     }
 
     @Override
     public Event getById(Long key) {
         String query = "SELECT * FROM events WHERE id=?";
-        return jdbcTemplate.query(query, new ResultSetExtractor<Event>() {
-
-            @Override
-            public Event extractData(ResultSet rs) throws SQLException, DataAccessException {
-                if (rs.next()) {
-                    return getEventFromRS(rs);
-                } else {
-                    return null;
-                }
+        return jdbcTemplate.query(query, rs -> {
+            if (rs.next()) {
+                return getEventFromRS(rs);
+            } else {
+                return null;
             }
         }, key);
     }
@@ -121,10 +114,9 @@ public class EventDAOImpl implements EventDAO {
     @Override
     public List<Event> getForDateRange(LocalDate from, LocalDate to) {
         String query = "SELECT * FROM events WHERE start>? AND start<?";
-        List<Event> eventsList = jdbcTemplate.query(query, (resultSet, i) -> {
+        return jdbcTemplate.query(query, (resultSet, i) -> {
             return getEventFromRS(resultSet);
         }, from, to);
-        return eventsList;
     }
 
 

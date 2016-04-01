@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.PostConstruct;
 import java.util.Date;
 
+@Controller
 public class AuthContorller {
 
     @PostConstruct
@@ -27,6 +29,11 @@ public class AuthContorller {
     private UserService userService;  //Service which will do all data retrieval/manipulation work
 
     private PasswordEncoder passwordEncoder;
+
+    @RequestMapping("login")
+    public String loginPage() {
+        return "login";
+    }
 
     @RequestMapping(path = "/signup", method = RequestMethod.POST)
     public ResponseEntity<User> createUser(@RequestBody User user) {

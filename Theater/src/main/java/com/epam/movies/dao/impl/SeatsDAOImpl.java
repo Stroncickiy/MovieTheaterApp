@@ -5,8 +5,6 @@ import com.epam.movies.model.Seat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -38,7 +36,7 @@ public class SeatsDAOImpl implements SeatsDAO {
     @Override
     public void update(Seat item) {
         String query = "UPDATE  seats SET isVip = ? WHERE number=? AND auditory=?   ";
-        int updated = jdbcTemplate.update(connection -> {
+        jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setBoolean(1, item.isVip());
             preparedStatement.setLong(2, item.getNumber());
@@ -50,7 +48,7 @@ public class SeatsDAOImpl implements SeatsDAO {
     @Override
     public void remove(Long key) {
         String query = "DELETE FROM seats  WHERE id=? ";
-        int removed = jdbcTemplate.update(connection -> {
+        jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, key);
             return preparedStatement;
@@ -60,10 +58,9 @@ public class SeatsDAOImpl implements SeatsDAO {
     @Override
     public List<Seat> getAll() {
         String query = "SELECT * FROM seats ";
-        List<Seat> seatsList = jdbcTemplate.query(query, (resultSet, i) -> {
+        return jdbcTemplate.query(query, (resultSet, i) -> {
             return getSeatFromRS(resultSet);
         });
-        return seatsList;
     }
 
     @Override
@@ -76,10 +73,9 @@ public class SeatsDAOImpl implements SeatsDAO {
 
     public List<Seat> getSeatsForTicket(long id) {
         String query = "SELECT * FROM seats s  JOIN  seats_tickets st ON s.number=st.seat_number AND s.auditory=st.auditory_id WHERE st.ticket_id=? ;";
-        List<Seat> seatsList = jdbcTemplate.query(query, (resultSet, i) -> {
+        return jdbcTemplate.query(query, (resultSet, i) -> {
             return getSeatFromRS(resultSet);
         }, id);
-        return seatsList;
     }
 
     private Seat getSeatFromRS(ResultSet resultSet) throws SQLException {
@@ -101,24 +97,14 @@ public class SeatsDAOImpl implements SeatsDAO {
         }
         queryBuilder.append(")");
         query = queryBuilder.toString();
-        List<Seat> seatsList = jdbcTemplate.query(query, new PreparedStatementSetter() {
-
-            @Override
-            public void setValues(PreparedStatement ps) throws SQLException {
-                ps.setLong(1, auditoriumId);
-                for (int i = 0; i < seatIds.length; i++) {
-                    ps.setLong(i + 2, seatIds[i]);
-                }
+        return jdbcTemplate.query(query, ps -> {
+            ps.setLong(1, auditoriumId);
+            for (int i = 0; i < seatIds.length; i++) {
+                ps.setLong(i + 2, seatIds[i]);
             }
-
-        }, new RowMapper<Seat>() {
-
-            @Override
-            public Seat mapRow(ResultSet rs, int i) throws SQLException {
-                return getSeatFromRS(rs);
-            }
+        }, (rs, i) -> {
+            return getSeatFromRS(rs);
         });
-        return seatsList;
     }
 
     public void assignSeatsWithTicket(List<Seat> bookedSeats, Long ticketId) {
@@ -141,9 +127,8 @@ public class SeatsDAOImpl implements SeatsDAO {
 
     public List<Seat> getSeatsForAuditorium(Long auditoriumId) {
         String query = "SELECT * FROM seats s  WHERE auditory=? ";
-        List<Seat> seatsList = jdbcTemplate.query(query, (resultSet, i) -> {
+        return jdbcTemplate.query(query, (resultSet, i) -> {
             return getSeatFromRS(resultSet);
         }, auditoriumId);
-        return seatsList;
     }
 }

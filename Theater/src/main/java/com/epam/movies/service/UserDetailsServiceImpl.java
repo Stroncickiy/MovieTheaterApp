@@ -13,9 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service @Qualifier("theaterDTS")
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -41,12 +41,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     private List<GrantedAuthority> buildUserAuthority(List<UserRole> userRoles) {
-        Set<GrantedAuthority> setAuths = new HashSet<>();
-        for (UserRole userRole: userRoles){
-            setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
-        }
-        List<GrantedAuthority> Result = new ArrayList<>(setAuths);
-        return Result;
+        Set<GrantedAuthority> setAuths = userRoles.stream().map(userRole -> new SimpleGrantedAuthority(userRole.getRole())).collect(Collectors.toSet());
+        return new ArrayList<>(setAuths);
     }
 
 }

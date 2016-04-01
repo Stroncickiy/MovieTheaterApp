@@ -34,7 +34,7 @@ public class StatisticsCounterAspect {
 	public void countAfterCalling(JoinPoint joinPoint) {
 		Object[] args = joinPoint.getArgs();
 		String eventName = (String) args[0];
-		if (!eventStatisticsService.isStatisticsForEventExists(eventName)) {
+		if (eventStatisticsService.isStatisticsForEventExists(eventName)) {
 			EventStatistics eventStatistics = new EventStatistics(eventName);
 			eventStatistics.incrementNameQueried();
 			eventStatisticsService.add(eventStatistics);
@@ -52,7 +52,7 @@ public class StatisticsCounterAspect {
 		Object[] args = joinPoint.getArgs();
 		Ticket ticket = (Ticket) args[0];
 		String eventName = ticket.getEvent().getName();
-		if (!eventStatisticsService.isStatisticsForEventExists(eventName)) {
+		if (eventStatisticsService.isStatisticsForEventExists(eventName)) {
 			EventStatistics eventStatistics = new EventStatistics(eventName);
 			eventStatistics.incrementPriceQueried();
 			eventStatisticsService.add(eventStatistics);
@@ -70,7 +70,7 @@ public class StatisticsCounterAspect {
 		Object[] args = joinPoint.getArgs();
 		Ticket ticket = (Ticket) args[0];
 		String eventName = ticket.getEvent().getName();
-		if (!eventStatisticsService.isStatisticsForEventExists(eventName)) {
+		if (eventStatisticsService.isStatisticsForEventExists(eventName)) {
 			EventStatistics eventStatistics = new EventStatistics(eventName);
 			eventStatistics.incrementTicketsBoocked();
 			eventStatisticsService.add(eventStatistics);

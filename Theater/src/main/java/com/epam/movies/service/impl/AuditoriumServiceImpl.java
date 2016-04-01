@@ -2,8 +2,6 @@ package com.epam.movies.service.impl;
 
 import com.epam.movies.dao.AuditoriumDAO;
 import com.epam.movies.dao.SeatsDAO;
-import com.epam.movies.dao.impl.AuditoriumDAOImpl;
-import com.epam.movies.dao.impl.SeatsDAOImpl;
 import com.epam.movies.model.Auditorium;
 import com.epam.movies.model.Seat;
 import com.epam.movies.service.AuditoriumService;
@@ -62,7 +60,7 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 		List<Seat> seatList = new ArrayList<>();
 		for (int seatNumber = 1; seatNumber <= auditoryNumberOfSeats; seatNumber++) {
 			Seat seat = new Seat();
-			seat.setNumber(Long.valueOf(seatNumber));
+			seat.setNumber((long) seatNumber);
 			seat.setVip(auditoryVipSeats.contains(String.valueOf(seatNumber)));
 			seatList.add(seat);
 		}

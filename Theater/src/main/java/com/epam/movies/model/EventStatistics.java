@@ -27,15 +27,15 @@ public class EventStatistics {
     }
 
     public void  incrementNameQueried() {
-         queriedByName = queriedByName.intValue()+1;
+        queriedByName = queriedByName + 1;
     }
 
     public void  incrementPriceQueried() {
-        priceQueried = priceQueried.intValue()+1;
+        priceQueried = priceQueried + 1;
     }
 
     public void  incrementTicketsBoocked() {
-        ticketsBoocked = ticketsBoocked.intValue()+1;
+        ticketsBoocked = ticketsBoocked + 1;
     }
 
 

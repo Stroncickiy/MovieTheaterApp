@@ -5,9 +5,6 @@ import com.epam.movies.model.User;
 
 import java.util.List;
 
-/**
- * Created by Yaroslav_Strontsitsk on 2/4/2016.
- */
 public interface UserService {
 
 	User register(User user);

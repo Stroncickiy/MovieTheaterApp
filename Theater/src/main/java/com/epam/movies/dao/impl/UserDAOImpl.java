@@ -65,10 +65,9 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<User> getAll() {
         String query = "SELECT * FROM users ";
-        List<User> userstList = jdbcTemplate.query(query, (resultSet, i) -> {
+        return jdbcTemplate.query(query, (resultSet, i) -> {
             return getUserFromRS(resultSet);
         });
-        return userstList;
     }
 
     @Override

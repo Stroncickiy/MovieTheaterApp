@@ -98,13 +98,7 @@ public class Ticket {
         Ticket ticket = (Ticket) o;
 
         if (id != null ? !id.equals(ticket.id) : ticket.id != null) return false;
-        if (customer != null ? !customer.equals(ticket.customer) : ticket.customer != null) return false;
-        if (event != null ? !event.equals(ticket.event) : ticket.event != null) return false;
-        if (bookedSeats != null ? !bookedSeats.equals(ticket.bookedSeats) : ticket.bookedSeats != null) return false;
-        if (totalPrice != null ? !totalPrice.equals(ticket.totalPrice) : ticket.totalPrice != null) return false;
-        if (discountStrategy != null ? !discountStrategy.equals(ticket.discountStrategy) : ticket.discountStrategy != null)
-            return false;
-        return realPrice != null ? realPrice.equals(ticket.realPrice) : ticket.realPrice == null;
+        return customer != null ? customer.equals(ticket.customer) : ticket.customer == null && (event != null ? event.equals(ticket.event) : ticket.event == null && (bookedSeats != null ? bookedSeats.equals(ticket.bookedSeats) : ticket.bookedSeats == null && (totalPrice != null ? totalPrice.equals(ticket.totalPrice) : ticket.totalPrice == null && (discountStrategy != null ? discountStrategy.equals(ticket.discountStrategy) : ticket.discountStrategy == null && (realPrice != null ? realPrice.equals(ticket.realPrice) : ticket.realPrice == null)))));
 
     }
 

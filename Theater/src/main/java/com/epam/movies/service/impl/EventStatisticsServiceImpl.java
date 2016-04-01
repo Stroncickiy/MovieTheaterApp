@@ -1,7 +1,6 @@
 package com.epam.movies.service.impl;
 
 import com.epam.movies.dao.EventStatisticsDAO;
-import com.epam.movies.dao.impl.EventStatisticsDAOImpl;
 import com.epam.movies.model.EventStatistics;
 import com.epam.movies.service.EventStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class EventStatisticsServiceImpl implements EventStatisticsService {
 
 	@Override
 	public boolean isStatisticsForEventExists(String name) {
-		return eventStatisticsDAO.isEventStatisticsExist(name);
+		return !eventStatisticsDAO.isEventStatisticsExist(name);
 	}
 
 	@Override

@@ -29,8 +29,7 @@ public class MovieTheaterInitializer extends AbstractAnnotationConfigDispatcherS
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
-        Filter[] singleton = {new CORSFilter(), characterEncodingFilter};
-        return singleton;
+        return new Filter[]{new CORSFilter(), characterEncodingFilter};
     }
 
 }

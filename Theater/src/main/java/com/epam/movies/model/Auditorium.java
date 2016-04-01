@@ -46,9 +46,7 @@ public class Auditorium {
 
         Auditorium that = (Auditorium) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return seats != null ? seats.equals(that.seats) : that.seats == null;
+        return id != null ? id.equals(that.id) : that.id == null && (name != null ? name.equals(that.name) : that.name == null && (seats != null ? seats.equals(that.seats) : that.seats == null));
 
     }
 

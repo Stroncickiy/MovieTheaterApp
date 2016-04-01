@@ -33,22 +33,19 @@ public class UserServiceImpl implements UserService {
 
 	public User getUserByEmail(String email) {
 		List<User> all = userDAO.getAll();
-		User user = all.stream().filter(e -> e.getEmail().equalsIgnoreCase(email)).findFirst().get();
-		return user;
+		return all.stream().filter(e -> e.getEmail().equalsIgnoreCase(email)).findFirst().get();
 	}
 
 	public User getUserByName(String name) {
 		List<User> all = userDAO.getAll();
-		User user = all.stream().filter(e -> e.getFirstName().equals(name)).findFirst().get();
-		return user;
+		return all.stream().filter(e -> e.getFirstName().equals(name)).findFirst().get();
 	}
 
 	public List<Ticket> getBookedTickets(long id) {
 		List<Ticket> all = ticketDAO.getAll();
-		List<Ticket> tickets = all.stream().filter(e -> e.getCustomer().equals(userDAO.getById(id)))
-				.collect(Collectors.toList());
 
-		return tickets;
+		return all.stream().filter(e -> e.getCustomer().equals(userDAO.getById(id)))
+				.collect(Collectors.toList());
 	}
 
 	@Override

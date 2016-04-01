@@ -66,10 +66,9 @@ public class EventStatisticsDAOImpl implements EventStatisticsDAO {
     @Override
     public List<EventStatistics> getAll() {
         String query = "SELECT * FROM event_queries ";
-        List<EventStatistics> eventsList = jdbcTemplate.query(query, (resultSet, i) -> {
+        return jdbcTemplate.query(query, (resultSet, i) -> {
             return getEventQueryStatisticsFromRS(resultSet);
         });
-        return eventsList;
     }
 
     private EventStatistics getEventQueryStatisticsFromRS(ResultSet resultSet) throws SQLException {
