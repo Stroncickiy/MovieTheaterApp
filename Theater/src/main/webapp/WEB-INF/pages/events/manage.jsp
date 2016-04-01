@@ -13,9 +13,9 @@
 		<jsp:include page="../header.jsp" />
 		<div id="main">
 			<br /> <a
-				href="${pageContext.request.contextPath}/events/manage/add"
+				href="${pageContext.request.contextPath}/events/add"
 				class="btn btn-info">Add Event</a> <a
-				href="${pageContext.request.contextPath}/events/all/get"
+				href="${pageContext.request.contextPath}/events/all/download"
 				class="btn btn-info">Load Events in Xml</a>
 				<br></br>
 			<div class="row">
@@ -34,7 +34,7 @@
 						<div class="movie-image">
 							<span class="play"><span class="name">${event.name}</span></span>
 							<a style="z-index: 9999;"
-								href="${pageContext.request.contextPath}/event/${event.id}"><img
+								href="${pageContext.request.contextPath}/events/${event.id}"><img
 								src="${pageContext.request.contextPath}/resources/css/images/movie${allEvents.indexOf(event)+1}.jpg"
 								alt="movie" /></a>
 						</div>

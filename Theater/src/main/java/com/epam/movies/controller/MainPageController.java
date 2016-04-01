@@ -14,21 +14,21 @@ import java.util.List;
 @Controller
 public class MainPageController {
 
-	@Autowired
-	private EventService eventService;
+    @Autowired
+    private EventService eventService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView index() {
-		ModelAndView indexModelAndView = new ModelAndView("index");
-		List<Event> all = eventService.getAll();
-		indexModelAndView.addObject("events", all);
-		return indexModelAndView;
-	}
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView index() {
+        ModelAndView indexModelAndView = new ModelAndView("index");
+        List<Event> all = eventService.getAll();
+        indexModelAndView.addObject("events", all);
+        return indexModelAndView;
+    }
 
-	@RequestMapping(value = "/witherror", method = { RequestMethod.GET })
-	public void openPageWithException() throws IOException {
-		throw new IOException("some Error occured in this controller");
+    @RequestMapping(value = "/witherror", method = {RequestMethod.GET})
+    public void openPageWithException() throws IOException {
+        throw new IOException("some Error occured in this controller");
 
-	}
+    }
 
 }

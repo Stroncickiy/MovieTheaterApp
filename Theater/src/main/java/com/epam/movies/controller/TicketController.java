@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("ticket")
-public class BookingController {
+@RequestMapping("tickets")
+public class TicketController {
 
 	@Autowired
 	private UserService userService;
@@ -50,6 +51,22 @@ public class BookingController {
 				auditoriumService.getSeatsByNumbersAndAuditorium(targetEvent.getAuditorium().getId(), chosenSeats));
 		bookingService.bookTicket(ticket);
 		return "redirect:/tickets/my";
+	}
+
+	@RequestMapping("/my")
+	public ModelAndView openMyTicketsPage() {
+		ModelAndView modelAndView = new ModelAndView("tickets/userTickets");
+		User user = userService.getAll().get(0);
+		List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
+		modelAndView.addObject("tickets", ticketsForUser);
+		return modelAndView;
+	}
+
+	@RequestMapping(path = "/my/get", produces = { "application/pdf" })
+	public ModelAndView getTicketsAsFile() {
+		User user = userService.getAll().get(0);
+		List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
+		return new ModelAndView("ticketsPdfView", "tickets", ticketsForUser);
 	}
 
 }

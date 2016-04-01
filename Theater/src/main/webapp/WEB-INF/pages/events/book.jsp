@@ -39,7 +39,7 @@
 						<span>${event.rating}</span>
 					</div>
 					<form
-						action="${pageContext.request.contextPath}/ticket/book/${event.id}"
+						action="${pageContext.request.contextPath}/tickets/book/${event.id}"
 						method="post">
 						<div class="row">
 							<select multiple="multiple" name="targetSeats">

@@ -11,26 +11,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import java.util.Date;
 
-
-@RestController
-public class SignUpController {
-
-    @Autowired
-    private UserService userService;  //Service which will do all data retrieval/manipulation work
-
-    private PasswordEncoder passwordEncoder ;
+public class AuthContorller {
 
     @PostConstruct
-    public void init(){
+    public void init() {
         passwordEncoder = new BCryptPasswordEncoder();
     }
 
 
+    @Autowired
+    private UserService userService;  //Service which will do all data retrieval/manipulation work
+
+    private PasswordEncoder passwordEncoder;
 
     @RequestMapping(path = "/signup", method = RequestMethod.POST)
     public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -52,5 +48,4 @@ public class SignUpController {
 
 
     }
-
 }

@@ -24,7 +24,7 @@
 							<div class="movie-image">
 								<span class="play"><span class="name">${event.name}</span></span>
 								<a style="z-index: 9999;"
-									href="${pageContext.request.contextPath}/event/${event.id}"><img
+									href="${pageContext.request.contextPath}/events/${event.id}"><img
 									src="${pageContext.request.contextPath}/resources/css/images/movie${events.indexOf(event)+1}.jpg"
 									alt="movie" /></a>
 							</div>
