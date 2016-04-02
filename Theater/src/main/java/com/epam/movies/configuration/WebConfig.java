@@ -1,5 +1,6 @@
 package com.epam.movies.configuration;
 
+import com.epam.movies.converters.LocalDateConverter;
 import com.epam.movies.service.UserDetailsServiceImpl;
 import com.epam.movies.util.ProcessExecutor;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -66,6 +68,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     private String serverLocationFolder;
 
     private static final String configFileName = "environment.properties";
+
+    @Value("${dateFormat}")
+    private String dateFormat;
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new LocalDateConverter(dateFormat));
+    }
+
 
     @PostConstruct
     public void initDataBase() throws IOException {

@@ -1,15 +1,19 @@
 package com.epam.movies.dao.impl;
 
 import com.epam.movies.dao.UserDAO;
+import com.epam.movies.enums.UserRole;
 import com.epam.movies.model.User;
+import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.sql.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -19,16 +23,17 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User add(User item) {
-        String query = "INSERT INTO users (email,firstName,lastName,birthDate,password,enabled) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO users (email,password,firstName,lastName,birthDate,roles,enabled) VALUES (?,?,?,?,?,?,?)";
         KeyHolder holder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, item.getEmail());
-            preparedStatement.setString(2, item.getFirstName());
-            preparedStatement.setString(3, item.getLastName());
-            preparedStatement.setDate(4, new Date(item.getBirthDate().getTime()));
-            preparedStatement.setString(5, item.getPassword());
-            preparedStatement.setBoolean(6, item.isEnabled());
+            preparedStatement.setString(2, item.getPassword());
+            preparedStatement.setString(3, item.getFirstName());
+            preparedStatement.setString(4, item.getLastName());
+            preparedStatement.setDate(5, Date.valueOf(item.getBirthDate()));
+            preparedStatement.setString(6, StringUtils.collectionToCommaDelimitedString(item.getRoles()));
+            preparedStatement.setBoolean(7, item.isEnabled());
             return preparedStatement;
         }, holder);
         Long newEventID = holder.getKey().longValue();
@@ -38,16 +43,17 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void update(User item) {
-        String query = "UPDATE  users SET email=?,firstName=?,lastName=?,birthDate=?,password=?,enabled=? WHERE id=?";
+        String query = "UPDATE  users SET email=?,password=?,firstName=?,lastName=?,birthDate=?,roles=?,enabled=? WHERE id=?";
         jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setLong(1, item.getId());
-            preparedStatement.setString(2, item.getFirstName());
-            preparedStatement.setString(3, item.getLastName());
-            preparedStatement.setDate(4, new Date(item.getBirthDate().getTime()));
-            preparedStatement.setString(5, item.getPassword());
-            preparedStatement.setBoolean(6, item.isEnabled());
-            preparedStatement.setLong(7, item.getId());
+            preparedStatement.setString(1, item.getEmail());
+            preparedStatement.setString(2, item.getPassword());
+            preparedStatement.setString(3, item.getFirstName());
+            preparedStatement.setString(4, item.getLastName());
+            preparedStatement.setDate(5, Date.valueOf(item.getBirthDate()));
+            preparedStatement.setString(6, StringUtils.collectionToCommaDelimitedString(item.getRoles()));
+            preparedStatement.setBoolean(7, item.isEnabled());
+            preparedStatement.setLong(8, item.getId());
             return preparedStatement;
         });
     }
@@ -84,10 +90,16 @@ public class UserDAOImpl implements UserDAO {
         user.setPassword(resultSet.getString("password"));
         user.setFirstName(resultSet.getString("firstName"));
         user.setId(resultSet.getLong("id"));
-        user.setBirthDate(resultSet.getDate("birthDate"));
+        user.setBirthDate(resultSet.getDate("birthDate").toLocalDate());
         user.setEnabled(resultSet.getBoolean("enabled"));
         user.setLastName(resultSet.getString("lastName"));
-        user.setUserRoles(null); // TODO query user roles from database
+        user.setRoles(Splitter.on(",")
+                .omitEmptyStrings()
+                .trimResults()
+                .splitToList(resultSet.getString("roles"))
+                .stream()
+                .map(UserRole::valueOf)
+                .collect(Collectors.toList()));
         return user;
     }
 

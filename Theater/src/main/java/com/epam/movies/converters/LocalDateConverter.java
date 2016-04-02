@@ -1,17 +1,24 @@
 package com.epam.movies.converters;
 
+import org.springframework.core.convert.converter.Converter;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public final class LocalDateConverter {
-	private final static String dateFormat = "mm/dd/yyyy";
-	private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+public final class LocalDateConverter implements Converter<String, LocalDate> {
 
-	public static LocalDate convert(String source) {
-		if (source == null || source.isEmpty()) {
-			return null;
-		}
+    private final DateTimeFormatter formatter;
 
-		return LocalDate.parse(source, formatter);
-	}
+    public LocalDateConverter(String dateFormat) {
+        this.formatter = DateTimeFormatter.ofPattern(dateFormat.trim());
+    }
+
+    @Override
+    public LocalDate convert(String source) {
+        if (source == null || source.isEmpty()) {
+            return null;
+        }
+
+        return LocalDate.parse(source, formatter);
+    }
 }

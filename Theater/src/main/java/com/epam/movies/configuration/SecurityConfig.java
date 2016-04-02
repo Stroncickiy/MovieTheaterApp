@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")
                 .and().logout().logoutSuccessUrl("/login?logout")
-                .and().authorizeRequests().antMatchers("/login", "/resources/**").permitAll()
+                .and().authorizeRequests().antMatchers("/login", "/register", "/resources/**").permitAll()
                 .antMatchers("/**").authenticated()
                 .and().csrf().disable();
     }

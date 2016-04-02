@@ -1,8 +1,8 @@
 package com.epam.movies.service;
 
 
+import com.epam.movies.enums.UserRole;
 import com.epam.movies.model.User;
-import com.epam.movies.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Service @Qualifier("theaterDTS")
+@Service
+@Qualifier("theaterDTS")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -29,19 +30,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         User user = userService.getUserByEmail(email);
         List<GrantedAuthority> authorities =
-                buildUserAuthority(user.getUserRoles());
+                buildUserAuthority(user.getRoles());
 
         return buildUserForAuthentication(user, authorities);
 
     }
-    private  org.springframework.security.core.userdetails.User  buildUserForAuthentication(User user,
-                                            List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User  (user.getEmail(), user.getPassword(),
+
+    private org.springframework.security.core.userdetails.User buildUserForAuthentication(User user,
+                                                                                          List<GrantedAuthority> authorities) {
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 user.isEnabled(), true, true, true, authorities);
     }
 
     private List<GrantedAuthority> buildUserAuthority(List<UserRole> userRoles) {
-        Set<GrantedAuthority> setAuths = userRoles.stream().map(userRole -> new SimpleGrantedAuthority(userRole.getRole())).collect(Collectors.toSet());
+        Set<GrantedAuthority> setAuths = userRoles
+                .stream()
+                .map(userRole -> new SimpleGrantedAuthority(userRole.name()))
+                .collect(Collectors.toSet());
         return new ArrayList<>(setAuths);
     }
 
