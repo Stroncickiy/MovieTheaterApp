@@ -33,8 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.exceptionHandling().accessDeniedPage("denied")
-                .and().formLogin().loginPage("/login").failureUrl("/login?error")
+        http
+//                .exceptionHandling().accessDeniedPage("denied")
+//                .and()
+                .formLogin().loginPage("/login").failureUrl("/login?error")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")
