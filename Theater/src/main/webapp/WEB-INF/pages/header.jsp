@@ -33,16 +33,7 @@
             <li><a href="${pageContext.request.contextPath}/events/all">SHOW
                 ALL</a></li>
         </ul>
-        <div id="search">
-            <form action="#" method="get" accept-charset="utf-8">
-                <label for="search-field">SEARCH</label> <input type="text"
-                                                                name="search field" value="Enter search here"
-                                                                id="search-field"
-                                                                title="Enter search here" class="blink search-field"/>
-                <input
-                        type="submit" value="GO!" class="search-button"/>
-            </form>
-        </div>
+
     </div>
     <!-- end Sub-Menu -->
 

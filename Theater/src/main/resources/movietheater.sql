@@ -71,6 +71,35 @@ INSERT INTO `events` VALUES (1,'Star Wars',7,'2016-03-20 11:55:01','2016-03-15 2
 UNLOCK TABLES;
 
 --
+-- Table structure for table `persistent_logins`
+--
+
+DROP TABLE IF EXISTS `persistent_logins`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `persistent_logins` (
+  `username`  VARCHAR(64) NOT NULL,
+  `series`    VARCHAR(64) NOT NULL,
+  `token`     VARCHAR(64) NOT NULL,
+  `last_used` TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`series`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `persistent_logins`
+--
+
+LOCK TABLES `persistent_logins` WRITE;
+/*!40000 ALTER TABLE `persistent_logins`
+  DISABLE KEYS */;
+/*!40000 ALTER TABLE `persistent_logins`
+  ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `seats`
 --
 
@@ -161,15 +190,19 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) DEFAULT NULL,
-  `firstName` varchar(45) DEFAULT NULL,
-  `lastName` varchar(45) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `enabled` smallint(6) DEFAULT NULL,
-  `birthDate` date DEFAULT NULL,
+  `id`        BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `email`     VARCHAR(45)         DEFAULT NULL,
+  `firstName` VARCHAR(45)         DEFAULT NULL,
+  `lastName`  VARCHAR(45)         DEFAULT NULL,
+  `password`  VARCHAR(100)        DEFAULT NULL,
+  `enabled`   SMALLINT(6)         DEFAULT NULL,
+  `birthDate` DATE                DEFAULT NULL,
+  `roles`     VARCHAR(45)         DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 4
+  DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +211,9 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'stroncickiy@gmail.com','Slavik','Stroncickiy','$2a$10$be7uyWFfvFJCzEv7PG7ICuzjwL5HtL6qusOi5VwwuQmKLT085H1Ku',1,'2016-02-21');
+INSERT INTO `users` VALUES
+  (1, 'stroncickiy@gmail.com', 'Slavik', 'Stroncickiy', '$2a$10$be7uyWFfvFJCzEv7PG7ICuzjwL5HtL6qusOi5VwwuQmKLT085H1Ku',
+   1, '2016-02-21', 'REGISTERED_USER');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -191,4 +226,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-20 21:52:34
+-- Dump completed on 2016-04-02 19:37:00

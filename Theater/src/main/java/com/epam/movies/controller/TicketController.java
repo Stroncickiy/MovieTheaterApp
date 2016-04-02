@@ -8,6 +8,7 @@ import com.epam.movies.service.BookingService;
 import com.epam.movies.service.EventService;
 import com.epam.movies.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +38,7 @@ public class TicketController {
     @RequestMapping(value = "/book/{id}", method = RequestMethod.POST)
     public String bookPlaceForEvent(@PathVariable("id") long id,
                                     @RequestParam("targetSeats") List<String> chosenSeatsStrings) {
-        User customer = userService.getAll().get(0);
+        User customer = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
         Event targetEvent = eventService.getById(id);
 
         Long[] chosenSeats = new Long[chosenSeatsStrings.size()];
@@ -56,7 +57,7 @@ public class TicketController {
 
     @RequestMapping("/my")
     public String openMyTicketsPage(Model model) {
-        User user = userService.getAll().get(0);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
         List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
         model.addAttribute("tickets", ticketsForUser);
         return "tickets/userTickets";
@@ -64,7 +65,7 @@ public class TicketController {
 
     @RequestMapping(path = "/my/get", produces = {"application/pdf"})
     public ModelAndView getTicketsAsFile() {
-        User user = userService.getAll().get(0);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
         List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
         return new ModelAndView("ticketsPdfView", "tickets", ticketsForUser);
     }

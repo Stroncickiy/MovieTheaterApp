@@ -36,15 +36,21 @@
                         <input type="password" class="form-control" id="password" name="password"
                                placeholder="Enter Password" required>
                     </div>
+                    <div class="form-actions">
+                        <input type="checkbox" name="remember-me">Remember ME</input>
+                    </div>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                     <div class="form-actions">
                         <input type="submit"
                                class="btn btn-block btn-primary btn-default" value="Log in">
                     </div>
+                    <div class="form-actions">
+                        <a href="/register"
+                           class="btn btn-block btn-primary btn-default">Register</a>
+                    </div>
                 </form>
             </div>
-            <a href="/register">Register</a>
         </div>
     </div>
 </div>
