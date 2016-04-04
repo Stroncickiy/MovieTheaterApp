@@ -2,16 +2,6 @@
     <h1 id="logo">
         <a href="${pageContext.request.contextPath}/">Movie Hunter</a>
     </h1>
-    <div class="social">
-        <span>FOLLOW US ON:</span>
-        <ul>
-            <li><a class="twitter" href="#">twitter</a></li>
-            <li><a class="facebook" href="#">facebook</a></li>
-            <li><a class="vimeo" href="#">vimeo</a></li>
-            <li><a class="rss" href="#">rss</a></li>
-        </ul>
-    </div>
-
     <!-- Navigation -->
     <div id="navigation">
         <ul>
