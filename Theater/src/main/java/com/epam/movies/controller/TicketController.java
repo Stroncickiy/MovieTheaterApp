@@ -3,12 +3,9 @@ package com.epam.movies.controller;
 import com.epam.movies.model.Event;
 import com.epam.movies.model.Ticket;
 import com.epam.movies.model.User;
-import com.epam.movies.service.AuditoriumService;
-import com.epam.movies.service.BookingService;
-import com.epam.movies.service.EventService;
-import com.epam.movies.service.UserService;
+import com.epam.movies.model.UserAccount;
+import com.epam.movies.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -30,6 +28,10 @@ public class TicketController {
     private EventService eventService;
 
     @Autowired
+    private UserAccountService userAccountService;
+
+
+    @Autowired
     private AuditoriumService auditoriumService;
 
     @Autowired
@@ -37,8 +39,10 @@ public class TicketController {
 
     @RequestMapping(value = "/book/{id}", method = RequestMethod.POST)
     public String bookPlaceForEvent(@PathVariable("id") long id,
-                                    @RequestParam("targetSeats") List<String> chosenSeatsStrings) {
-        User customer = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
+                                    @RequestParam("targetSeats") List<String> chosenSeatsStrings, Model model, Principal principal) {
+
+        User customer = userService.getUserByEmail(principal.getName().trim());
+
         Event targetEvent = eventService.getById(id);
 
         Long[] chosenSeats = new Long[chosenSeatsStrings.size()];
@@ -51,21 +55,27 @@ public class TicketController {
         ticket.setCustomer(customer);
         ticket.setBookedSeats(
                 auditoriumService.getSeatsByNumbersAndAuditorium(targetEvent.getAuditorium().getId(), chosenSeats));
-        bookingService.bookTicket(ticket);
+        boolean booked = bookingService.bookTicket(ticket);
+        if (!booked) {
+            model.addAttribute("message", "Not enough money.. Please refill you account..");
+            return "message";
+        }
         return "redirect:/tickets/my";
     }
 
     @RequestMapping("/my")
-    public String openMyTicketsPage(Model model) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
+    public String openMyTicketsPage(Model model, Principal principal) {
+        User user = userService.getUserByEmail(principal.getName().trim());
         List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
         model.addAttribute("tickets", ticketsForUser);
+        UserAccount accountOfUser = userAccountService.getForUser(user);
+        model.addAttribute("balance", accountOfUser.getBalance());
         return "tickets/userTickets";
     }
 
     @RequestMapping(path = "/my/get", produces = {"application/pdf"})
-    public ModelAndView getTicketsAsFile() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
+    public ModelAndView getTicketsAsFile(Principal principal) {
+        User user = userService.getUserByEmail(principal.getName().trim());
         List<Ticket> ticketsForUser = bookingService.getTicketsForUser(user);
         return new ModelAndView("ticketsPdfView", "tickets", ticketsForUser);
     }

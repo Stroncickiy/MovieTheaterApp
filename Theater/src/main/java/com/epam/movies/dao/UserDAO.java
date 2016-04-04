@@ -4,4 +4,5 @@ import com.epam.movies.model.User;
 
 
 public interface UserDAO extends CommonDAO<User> {
+    User getUserByEmail(String email);
 }

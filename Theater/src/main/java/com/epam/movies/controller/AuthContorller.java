@@ -2,6 +2,8 @@ package com.epam.movies.controller;
 
 import com.epam.movies.enums.UserRole;
 import com.epam.movies.model.User;
+import com.epam.movies.model.UserAccount;
+import com.epam.movies.service.UserAccountService;
 import com.epam.movies.service.UserService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class AuthContorller {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserAccountService userAccountService;
 
     private PasswordEncoder passwordEncoder;
 
@@ -64,7 +69,11 @@ public class AuthContorller {
         user.setRoles(roles);
         user.setEnabled(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.register(user);
+        User newUser = userService.register(user);
+        UserAccount userAccount = new UserAccount();
+        userAccount.setUserId(newUser.getId());
+        userAccount.setBalance(1000L);
+        userAccountService.register(userAccount);
         return "redirect:/";
     }
 

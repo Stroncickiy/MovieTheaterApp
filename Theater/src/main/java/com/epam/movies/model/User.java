@@ -16,6 +16,7 @@ public class User {
     private List<UserRole> roles;
     private boolean enabled;
 
+
     public List<UserRole> getRoles() {
         return roles;
     }

@@ -16,8 +16,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -36,6 +38,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 @SpringBootApplication
+@EnableTransactionManagement
 @EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 @ComponentScan(basePackages = "com.epam.movies.*")
 @EnableAspectJAutoProxy
@@ -175,4 +178,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+
+    @Bean
+    public DataSourceTransactionManager getTransactionManager() {
+        return new DataSourceTransactionManager(dataSource());
+    }
+
+
 }

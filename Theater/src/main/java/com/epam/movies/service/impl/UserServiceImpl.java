@@ -32,8 +32,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public User getUserByEmail(String email) {
-		List<User> all = userDAO.getAll();
-		return all.stream().filter(e -> e.getEmail().equalsIgnoreCase(email)).findFirst().get();
+		return userDAO.getUserByEmail(email);
 	}
 
 	public User getUserByName(String name) {
