@@ -18,6 +18,36 @@ USE `movietheater`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `accounts`
+--
+
+DROP TABLE IF EXISTS `accounts`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `accounts` (
+  `id`      BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT(20)          DEFAULT NULL,
+  `balance` BIGINT(20)          DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 7
+  DEFAULT CHARSET = utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `accounts`
+--
+
+LOCK TABLES `accounts` WRITE;
+/*!40000 ALTER TABLE `accounts`
+  DISABLE KEYS */;
+INSERT INTO `accounts` VALUES (4, 8, 17600), (5, 9, 800), (6, 10, 800);
+/*!40000 ALTER TABLE `accounts`
+  ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `auditorium`
 --
 
@@ -149,7 +179,9 @@ CREATE TABLE `seats_tickets` (
 
 LOCK TABLES `seats_tickets` WRITE;
 /*!40000 ALTER TABLE `seats_tickets` DISABLE KEYS */;
-INSERT INTO `seats_tickets` VALUES (3,27,8),(4,27,8),(2,28,7),(3,28,7),(4,28,7),(1,29,8),(2,29,8),(3,29,8),(5,30,8),(2,31,8),(3,31,8),(4,31,8),(3,32,8),(4,32,8),(5,32,8),(4,33,8),(5,33,8),(3,34,8),(4,34,8),(5,34,8),(1,35,7),(2,35,7),(3,35,7),(2,36,8),(3,36,8),(4,36,8),(3,37,8),(2,38,7),(3,38,7);
+INSERT INTO `seats_tickets`
+VALUES (2, 39, 7), (3, 39, 7), (1, 40, 8), (2, 40, 8), (3, 40, 8), (1, 41, 8), (2, 41, 8), (3, 41, 8), (4, 41, 8),
+  (2, 42, 7), (3, 43, 7);
 /*!40000 ALTER TABLE `seats_tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +201,10 @@ CREATE TABLE `tickets` (
   `discountStrategy` varchar(45) DEFAULT NULL,
   `dicountAmount` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 44
+  DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +213,9 @@ CREATE TABLE `tickets` (
 
 LOCK TABLES `tickets` WRITE;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES (27,1,3,400,400,'NO_DISCOUNT',0),(28,1,1,500,500,'NO_DISCOUNT',0),(29,1,2,800,800,'NO_DISCOUNT',0),(30,1,2,200,200,'NO_DISCOUNT',0),(31,1,2,600,600,'NO_DISCOUNT',0),(32,1,3,600,600,'NO_DISCOUNT',0),(33,1,2,400,400,'NO_DISCOUNT',0),(34,1,3,600,600,'NO_DISCOUNT',0),(35,1,1,600,600,'NO_DISCOUNT',0),(36,1,2,600,600,'NO_DISCOUNT',0),(37,1,3,100,200,'EVERY_10_TICKET',100),(38,1,1,400,400,'NO_DISCOUNT',0);
+INSERT INTO `tickets` VALUES (39, 8, 1, 400, 400, 'NO_DISCOUNT', 0), (40, 8, 2, 800, 800, 'NO_DISCOUNT', 0),
+  (41, 8, 2, 1000, 1000, 'NO_DISCOUNT', 0), (42, 9, 1, 200, 200, 'NO_DISCOUNT', 0),
+  (43, 10, 1, 200, 200, 'NO_DISCOUNT', 0);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,7 +238,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  AUTO_INCREMENT = 4
+  AUTO_INCREMENT = 11
   DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -212,8 +249,10 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES
-  (1, 'stroncickiy@gmail.com', 'Slavik', 'Stroncickiy', '$2a$10$be7uyWFfvFJCzEv7PG7ICuzjwL5HtL6qusOi5VwwuQmKLT085H1Ku',
-   1, '2016-02-21', 'REGISTERED_USER');
+  (9, 'user@epam.com', 'User', 'User', '$2a$10$wcYdEaWe7jWKNnqdfhtMbuNWG2CMoUEZ3PKumO0uEwqe0wJkw2h8q', 1, '2016-03-28',
+   'REGISTERED_USER'),
+  (10, 'manager@epam.com', 'Manager', 'Manager', '$2a$10$FXr7bqbPYLQ3/qAyc.68ru56j9eWxSV8EqbMhg8M38hSDltlY4iNu', 1,
+   '2016-03-28', 'BOOKING_MANAGER,REGISTERED_USER');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -226,4 +265,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-02 19:37:00
+-- Dump completed on 2016-04-04 16:08:30
