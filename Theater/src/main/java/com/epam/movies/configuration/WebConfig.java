@@ -1,6 +1,7 @@
 package com.epam.movies.configuration;
 
 import com.epam.movies.converters.LocalDateConverter;
+import com.epam.movies.httpconverters.TicketToPdfHttpConverter;
 import com.epam.movies.service.impl.UserDetailsServiceImpl;
 import com.epam.movies.util.ProcessExecutor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +19,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -42,6 +45,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 @SpringBootApplication
@@ -235,4 +239,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
 
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(new MappingJackson2HttpMessageConverter());
+        converters.add(new TicketToPdfHttpConverter());
+        super.configureMessageConverters(converters);
+    }
 }

@@ -82,7 +82,7 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public List<Ticket> getAll() {
-        String query = "SELECT * FROM tickets ";
+        String query = "SELECT * FROM tickets";
         return jdbcTemplate.query(query, (resultSet, i) -> {
             return getTicketFromRS(resultSet);
         });
