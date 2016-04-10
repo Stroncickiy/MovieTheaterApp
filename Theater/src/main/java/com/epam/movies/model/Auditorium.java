@@ -4,8 +4,10 @@ package com.epam.movies.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
+@XmlRootElement
 public class Auditorium {
 
     @Id

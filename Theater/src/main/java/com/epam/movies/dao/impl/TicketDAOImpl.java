@@ -55,9 +55,9 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     @Override
-    public void update(Ticket item) {
+    public boolean update(Ticket item) {
         String query = "UPDATE  tickets SET customerId=?,eventId=?,totalPrice=?,realPrice=?,discountStrategy=?,dicountAmount=? WHERE id=?";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, item.getCustomer().getId());
             preparedStatement.setLong(2, item.getEvent().getId());
@@ -71,9 +71,9 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     @Override
-    public void remove(Long key) {
+    public boolean remove(Long key) {
         String query = "DELETE FROM tickets  WHERE id=? ";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, key);
             return preparedStatement;

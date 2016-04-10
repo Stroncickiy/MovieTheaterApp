@@ -1,19 +1,31 @@
 package com.epam.movies.model;
 
 import com.epam.movies.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.xml.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
+    @XmlAttribute
     private Long id;
+    @XmlAttribute
+    @JsonIgnore
     private String password;
+    @XmlAttribute
     private String firstName;
+    @XmlAttribute
     private String lastName;
+    @XmlAttribute
     private String email;
+    @XmlTransient
     private LocalDate birthDate;
+    @XmlElement
     private List<UserRole> roles;
+    @XmlAttribute
     private boolean enabled;
 
 

@@ -1,7 +1,6 @@
 package com.epam.movies.view;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.web.servlet.view.AbstractView;
 
@@ -30,13 +29,13 @@ public abstract class AbstractPdfView extends AbstractView {
 				// Apply preferences and build metadata.
 				Document document = new Document();
 				PdfWriter writer = PdfWriter.getInstance(document, baos);
-				prepareWriter(model, writer, request);
+		prepareWriter(writer);
 				buildPdfMetadata(model, document, request);
 
 				// Build PDF document.
 				writer.setInitialLeading(16);
 				document.open();
-				buildPdfDocument(model, document, writer, request, response);
+		buildPdfDocument(model, document, request, response);
 				document.close();
 
 				// Flush to HTTP response.
@@ -44,8 +43,8 @@ public abstract class AbstractPdfView extends AbstractView {
 
 		
 	}
-	protected void prepareWriter(Map<String, Object> model, PdfWriter writer, HttpServletRequest request)
-			throws DocumentException {
+
+	protected void prepareWriter(PdfWriter writer) {
 		writer.setViewerPreferences(getViewerPreferences());
 	}
 	protected int getViewerPreferences() {
@@ -53,8 +52,9 @@ public abstract class AbstractPdfView extends AbstractView {
 	}
 	protected void buildPdfMetadata(Map<String, Object> model, Document document, HttpServletRequest request) {
 	}
-	protected abstract void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
-			HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	protected abstract void buildPdfDocument(Map<String, Object> model, Document document,
+											 HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 
 

@@ -13,42 +13,47 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@DependsOn(value = { "auditoriumService" })
+@DependsOn(value = {"auditoriumService"})
 public class EventServiceImpl implements EventService {
 
-	@Autowired
-	private EventDAO eventDAO;
+    @Autowired
+    private EventDAO eventDAO;
 
-	public Event create(Event event) {
-		return eventDAO.add(event);
-	}
+    public Event create(Event event) {
+        return eventDAO.add(event);
+    }
 
-	public void remove(Long id) {
-		 eventDAO.remove(id);
-	}
+    public boolean remove(Long id) {
+        return eventDAO.remove(id);
+    }
 
-	public Event getByName(String name) {
-		return eventDAO.getByName(name);
-	}
+    public Event getByName(String name) {
+        return eventDAO.getByName(name);
+    }
 
-	public List<Event> getAll() {
-		return eventDAO.getAll();
-	}
+    public List<Event> getAll() {
+        return eventDAO.getAll();
+    }
 
-	public List<Event> getForDateRange(LocalDate from, LocalDate to) {
-		return eventDAO.getForDateRange(from, to);
-	}
+    public List<Event> getForDateRange(LocalDate from, LocalDate to) {
+        return eventDAO.getForDateRange(from, to);
+    }
 
-	public void assignAuditorium(Event event, Auditorium auditorium, LocalDateTime start, LocalDateTime end) {
-		event.setAuditorium(auditorium);
-		event.setStart(start);
-		event.setEnd(end);
-		 eventDAO.update(event);
-	}
+    public void assignAuditorium(Event event, Auditorium auditorium, LocalDateTime start, LocalDateTime end) {
+        event.setAuditorium(auditorium);
+        event.setStart(start);
+        event.setEnd(end);
+        eventDAO.update(event);
+    }
 
-	@Override
-	public Event getById(Long eventId) {
-		return eventDAO.getById(eventId);
-		
-	}
+    @Override
+    public Event getById(Long eventId) {
+        return eventDAO.getById(eventId);
+
+    }
+
+    @Override
+    public boolean update(Event event) {
+        return eventDAO.update(event);
+    }
 }

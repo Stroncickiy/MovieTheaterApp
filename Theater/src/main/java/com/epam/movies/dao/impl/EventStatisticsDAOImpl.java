@@ -39,10 +39,10 @@ public class EventStatisticsDAOImpl implements EventStatisticsDAO {
     }
 
     @Override
-    public void update(EventStatistics item) {
+    public boolean update(EventStatistics item) {
         String query = "UPDATE event_queries SET name=?,queried_by_name=?,queried_price=?,booked=?  WHERE id=?";
 
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, item.getName());
             preparedStatement.setInt(2, item.getQueriedByName());
@@ -54,9 +54,9 @@ public class EventStatisticsDAOImpl implements EventStatisticsDAO {
     }
 
     @Override
-    public void remove(Long key) {
+    public boolean remove(Long key) {
         String query = "DELETE FROM event_queries  WHERE id=? ";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, key);
             return preparedStatement;

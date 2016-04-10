@@ -16,13 +16,13 @@ public class DiscountProvisionDAOImpl implements DiscountProvisionDAO {
     }
 
     @Override
-    public void update(DiscountProvision item) {
-
+    public boolean update(DiscountProvision item) {
+        return false;
     }
 
     @Override
-    public void remove(Long key) {
-
+    public boolean remove(Long key) {
+        return false;
     }
 
     @Override

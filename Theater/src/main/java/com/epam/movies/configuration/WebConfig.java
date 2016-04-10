@@ -1,15 +1,18 @@
 package com.epam.movies.configuration;
 
 import com.epam.movies.converters.LocalDateConverter;
-import com.epam.movies.service.UserDetailsServiceImpl;
+import com.epam.movies.service.impl.UserDetailsServiceImpl;
 import com.epam.movies.util.ProcessExecutor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -27,6 +30,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.ResourceBundleViewResolver;
+import org.springframework.ws.config.annotation.EnableWs;
+import org.springframework.ws.transport.http.MessageDispatcherServlet;
+import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
+import org.springframework.xml.xsd.SimpleXsdSchema;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.MultipartConfigElement;
@@ -44,6 +51,7 @@ import java.util.Properties;
 @EnableAspectJAutoProxy
 @PropertySources({@PropertySource("classpath:auditoriums.properties"),
         @PropertySource("classpath:environment.properties")})
+@EnableWs
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Value("${db.host}")
@@ -182,6 +190,48 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public DataSourceTransactionManager getTransactionManager() {
         return new DataSourceTransactionManager(dataSource());
+    }
+
+
+    //WS
+    @Bean
+    public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
+        MessageDispatcherServlet servlet = new MessageDispatcherServlet();
+        servlet.setApplicationContext(applicationContext);
+        servlet.setTransformWsdlLocations(true);
+        return new ServletRegistrationBean(servlet, "/ws/*");
+    }
+
+    @Bean(name = "userService")
+    public DefaultWsdl11Definition userServiceWsdl11Definition(@Qualifier("usersSchema") SimpleXsdSchema simpleXsdSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("UserService");
+        wsdl11Definition.setLocationUri("/ws/userService");
+        wsdl11Definition.setTargetNamespace("http://movietheater.epam.com");
+        wsdl11Definition.setSchema(simpleXsdSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean(name = "eventService")
+    public DefaultWsdl11Definition eventServiceWsdl11Definition(@Qualifier("eventsSchema") SimpleXsdSchema simpleXsdSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("EventService");
+        wsdl11Definition.setLocationUri("/ws/eventService");
+        wsdl11Definition.setTargetNamespace("http://movietheater.epam.com");
+        wsdl11Definition.setSchema(simpleXsdSchema);
+        return wsdl11Definition;
+    }
+
+    @Qualifier("usersSchema")
+    @Bean
+    public SimpleXsdSchema usersSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("xsd/UserWebService.xsd"));
+    }
+
+    @Qualifier("eventsSchema")
+    @Bean
+    public SimpleXsdSchema eventsSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("xsd/EventWebService.xsd"));
     }
 
 

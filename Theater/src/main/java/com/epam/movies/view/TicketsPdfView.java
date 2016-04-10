@@ -7,7 +7,6 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +16,8 @@ import java.util.Map;
 
 public class TicketsPdfView extends AbstractPdfView {
 
-	protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
-			HttpServletRequest req, HttpServletResponse resp) throws Exception {
+	protected void buildPdfDocument(Map<String, Object> model, Document document,
+									HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
 		@SuppressWarnings("unchecked")
 		List<Ticket> tickets = (ArrayList<Ticket>) model.get("tickets");

@@ -42,9 +42,9 @@ public class EventDAOImpl implements EventDAO {
     }
 
     @Override
-    public void update(Event item) {
+    public boolean update(Event item) {
         String query = "UPDATE events SET name=?,auditoriumId=?,start=?,end=?,basePrice=?,rating=?  WHERE id=?";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, item.getName());
             preparedStatement.setLong(2, item.getAuditorium().getId());
@@ -58,9 +58,9 @@ public class EventDAOImpl implements EventDAO {
     }
 
     @Override
-    public void remove(Long key) {
+    public boolean remove(Long key) {
         String query = "DELETE FROM events  WHERE id=? ";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, key);
             return preparedStatement;

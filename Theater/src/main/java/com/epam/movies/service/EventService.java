@@ -8,18 +8,20 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventService {
-	Event create(Event event);
+    Event create(Event event);
 
-	void remove(Long id);
+    boolean remove(Long id);
 
-	Event getByName(String name);
+    Event getByName(String name);
 
-	List<Event> getAll();
+    List<Event> getAll();
 
-	List<Event> getForDateRange(LocalDate from, LocalDate to);
+    List<Event> getForDateRange(LocalDate from, LocalDate to);
 
-	void assignAuditorium(Event event, Auditorium auditorium, LocalDateTime start, LocalDateTime end);
+    void assignAuditorium(Event event, Auditorium auditorium, LocalDateTime start, LocalDateTime end);
 
-	Event getById(Long eventId);
+    Event getById(Long eventId);
+
+    boolean update(Event event);
 
 }

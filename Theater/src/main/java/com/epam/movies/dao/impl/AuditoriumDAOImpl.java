@@ -44,9 +44,9 @@ public class AuditoriumDAOImpl implements AuditoriumDAO {
     }
 
     @Override
-    public void update(Auditorium item) {
+    public boolean update(Auditorium item) {
         String query = "UPDATE auditorium SET name=? WHERE id=? ";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, item.getName());
             preparedStatement.setLong(2, item.getId());
@@ -56,9 +56,9 @@ public class AuditoriumDAOImpl implements AuditoriumDAO {
     }
 
     @Override
-    public void remove(Long key) {
+    public boolean remove(Long key) {
         String query = "DELETE FROM auditorium  WHERE id=? ";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, key);
             return preparedStatement;

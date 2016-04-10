@@ -47,9 +47,9 @@ public class UserAccountDAOImpl implements UserAccountDAO {
     }
 
     @Override
-    public void update(UserAccount item) {
+    public boolean update(UserAccount item) {
         String query = "UPDATE accounts SET balance=? WHERE id=?";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, item.getBalance());
             preparedStatement.setLong(2, item.getId());
@@ -59,9 +59,9 @@ public class UserAccountDAOImpl implements UserAccountDAO {
     }
 
     @Override
-    public void remove(Long key) {
+    public boolean remove(Long key) {
         String query = "DELETE FROM accounts WHERE id=?";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, key);
             return preparedStatement;

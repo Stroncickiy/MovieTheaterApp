@@ -1,0 +1,94 @@
+<xs:schema version="1.0" targetNamespace="http://movietheater.epam.com" xmlns:tns="http://movietheater.epam.com"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+    <xs:element name="getUserByIdRequest" type="tns:getUserByIdRequest"/>
+
+    <xs:element name="getUserByIdResponse" type="tns:getUserByIdResponse"/>
+
+    <xs:element name="getUserByEmailRequest" type="tns:getUserByEmailRequest"/>
+
+    <xs:element name="getUserByEmailResponse" type="tns:getUserByEmailResponse"/>
+
+    <xs:element name="registerUserRequest" type="tns:registerUserRequest"/>
+
+    <xs:element name="registerUserResponse" type="tns:registerUserResponse"/>
+
+    <xs:element name="removeUserRequest" type="tns:removeUserRequest"/>
+
+    <xs:element name="removeUserResponse" type="tns:removeUserResponse"/>
+
+
+    <xs:element name="user" type="tns:user"/>
+
+
+    <xs:complexType name="user">
+        <xs:sequence>
+            <xs:element name="roles" type="tns:userRole" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:long" use="optional"/>
+        <xs:attribute name="firstName" type="xs:string"/>
+        <xs:attribute name="lastName" type="xs:string"/>
+        <xs:attribute name="email" type="xs:string"/>
+        <xs:attribute name="password" type="xs:string"/>
+        <xs:attribute name="enabled" type="xs:boolean" use="required"/>
+    </xs:complexType>
+
+
+    <xs:complexType name="removeUserRequest">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="removeUserResponse">
+        <xs:sequence>
+            <xs:element name="removed" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="registerUserRequest">
+        <xs:sequence>
+            <xs:element name="user" type="tns:user" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="registerUserResponse">
+        <xs:sequence>
+            <xs:element name="createdUser" type="tns:user" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="getUserByEmailRequest">
+        <xs:sequence>
+            <xs:element name="email" type="xs:string" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="getUserByEmailResponse">
+        <xs:sequence>
+            <xs:element name="user" type="tns:user" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="getUserByIdRequest">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="getUserByIdResponse">
+        <xs:sequence>
+            <xs:element name="user" type="tns:user" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="userRole">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="REGISTERED_USER"/>
+            <xs:enumeration value="BOOKING_MANAGER"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
+

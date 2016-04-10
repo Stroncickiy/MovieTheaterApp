@@ -1,8 +1,9 @@
-package com.epam.movies.service;
+package com.epam.movies.service.impl;
 
 
 import com.epam.movies.enums.UserRole;
 import com.epam.movies.model.User;
+import com.epam.movies.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

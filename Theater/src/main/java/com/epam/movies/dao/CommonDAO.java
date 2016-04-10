@@ -6,9 +6,9 @@ public interface CommonDAO<O> {
 
     O add(O item);
 
-    void update(O item);
+    boolean update(O item);
 
-    void remove(Long key);
+    boolean remove(Long key);
 
     List<O> getAll();
 

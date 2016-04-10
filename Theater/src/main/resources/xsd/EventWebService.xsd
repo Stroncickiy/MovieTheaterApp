@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://movietheater.epam.com" version="1.0"
+           targetNamespace="http://movietheater.epam.com">
+    <xs:element name="getEventByIdRequest" type="tns:getEventByIdRequest"/>
+    <xs:element name="getEventByIdResponse" type="tns:getEventByIdResponse"/>
+    <xs:element name="addEventRequest" type="tns:addEventRequest"/>
+    <xs:element name="addEventResponse" type="tns:addEventResponse"/>
+    <xs:element name="removeEventRequest" type="tns:removeEventRequest"/>
+    <xs:element name="removeEventResponse" type="tns:removeEventResponse"/>
+    <xs:element name="auditorium" type="tns:auditorium"/>
+    <xs:element name="event" type="tns:event"/>
+    <xs:element name="seat" type="tns:seat"/>
+    <xs:complexType name="auditorium">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="name" type="xs:string" minOccurs="0"/>
+            <xs:element name="seats" type="tns:seat" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="seat">
+        <xs:sequence>
+            <xs:element name="auditoryId" type="xs:long" minOccurs="0"/>
+            <xs:element name="number" type="xs:long" minOccurs="0"/>
+            <xs:element name="vip" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="event">
+        <xs:sequence>
+            <xs:element name="Id" type="xs:long" minOccurs="0"/>
+            <xs:element name="name" type="xs:string" minOccurs="0"/>
+            <xs:element name="basePrice" type="xs:long" minOccurs="0"/>
+            <xs:element name="rating" type="tns:rating" minOccurs="0"/>
+            <xs:element name="auditorium" type="tns:auditorium" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="removeEventRequest">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="removeEventResponse">
+        <xs:sequence>
+            <xs:element name="removed" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="addEventRequest">
+        <xs:sequence>
+            <xs:element name="event" type="tns:event" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="addEventResponse">
+        <xs:sequence>
+            <xs:element name="createdEvent" type="tns:event" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="getEventByIdRequest">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="getEventByIdResponse">
+        <xs:sequence>
+            <xs:element name="event" type="tns:event" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="rating">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="LOW"/>
+            <xs:enumeration value="MIDDLE"/>
+            <xs:enumeration value="HIGHT"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

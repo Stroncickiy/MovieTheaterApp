@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().logoutSuccessUrl("/login?logout")
                 .and()
-                .authorizeRequests().antMatchers("/login", "/register", "/resources/**").permitAll()
+                .authorizeRequests().antMatchers("/login", "/register", "/resources/**", "/ws/**", "/rest/**").permitAll()
                 .antMatchers("/events/manage").hasAuthority("BOOKING_MANAGER")
                 .anyRequest().authenticated()
                 .and()

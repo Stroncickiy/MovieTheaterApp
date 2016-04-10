@@ -42,9 +42,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void update(User item) {
+    public boolean update(User item) {
         String query = "UPDATE  users SET email=?,password=?,firstName=?,lastName=?,birthDate=?,roles=?,enabled=? WHERE id=?";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, item.getEmail());
             preparedStatement.setString(2, item.getPassword());
@@ -59,9 +59,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void remove(Long key) {
+    public boolean remove(Long key) {
         String query = "DELETE FROM users  WHERE id=? ";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, key);
             return preparedStatement;

@@ -34,9 +34,9 @@ public class SeatsDAOImpl implements SeatsDAO {
     }
 
     @Override
-    public void update(Seat item) {
+    public boolean update(Seat item) {
         String query = "UPDATE  seats SET isVip = ? WHERE number=? AND auditory=?   ";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setBoolean(1, item.isVip());
             preparedStatement.setLong(2, item.getNumber());
@@ -46,9 +46,9 @@ public class SeatsDAOImpl implements SeatsDAO {
     }
 
     @Override
-    public void remove(Long key) {
+    public boolean remove(Long key) {
         String query = "DELETE FROM seats  WHERE id=? ";
-        jdbcTemplate.update(connection -> {
+        return 0 < jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, key);
             return preparedStatement;
