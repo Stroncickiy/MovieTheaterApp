@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `movietheater` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `movietheater`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: movietheater
@@ -42,7 +40,7 @@ CREATE TABLE `accounts` (
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts`
   DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (4, 8, 17600), (5, 9, 800), (6, 10, 800);
+INSERT INTO `accounts` VALUES (5, 9, 800), (6, 10, 800);
 /*!40000 ALTER TABLE `accounts`
   ENABLE KEYS */;
 UNLOCK TABLES;
@@ -179,9 +177,7 @@ CREATE TABLE `seats_tickets` (
 
 LOCK TABLES `seats_tickets` WRITE;
 /*!40000 ALTER TABLE `seats_tickets` DISABLE KEYS */;
-INSERT INTO `seats_tickets`
-VALUES (2, 39, 7), (3, 39, 7), (1, 40, 8), (2, 40, 8), (3, 40, 8), (1, 41, 8), (2, 41, 8), (3, 41, 8), (4, 41, 8),
-  (2, 42, 7), (3, 43, 7);
+INSERT INTO `seats_tickets` VALUES (2, 42, 7), (3, 43, 7);
 /*!40000 ALTER TABLE `seats_tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,9 +209,7 @@ CREATE TABLE `tickets` (
 
 LOCK TABLES `tickets` WRITE;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES (39, 8, 1, 400, 400, 'NO_DISCOUNT', 0), (40, 8, 2, 800, 800, 'NO_DISCOUNT', 0),
-  (41, 8, 2, 1000, 1000, 'NO_DISCOUNT', 0), (42, 9, 1, 200, 200, 'NO_DISCOUNT', 0),
-  (43, 10, 1, 200, 200, 'NO_DISCOUNT', 0);
+INSERT INTO `tickets` VALUES (42, 9, 1, 200, 200, 'NO_DISCOUNT', 0), (43, 10, 1, 200, 200, 'NO_DISCOUNT', 0);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,4 +259,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-04 16:08:30
+-- Dump completed on 2016-04-12 23:55:53

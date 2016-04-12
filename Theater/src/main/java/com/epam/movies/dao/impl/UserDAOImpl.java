@@ -79,8 +79,12 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getById(Long key) {
         String query = "SELECT * FROM users WHERE id=?";
-        return jdbcTemplate.queryForObject(query, (resultSet, i) -> {
-            return getUserFromRS(resultSet);
+        return jdbcTemplate.query(query, rs -> {
+            if (rs.next()) {
+                return getUserFromRS(rs);
+            } else {
+                return null;
+            }
         }, key);
     }
 

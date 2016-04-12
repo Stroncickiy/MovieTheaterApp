@@ -91,8 +91,12 @@ public class TicketDAOImpl implements TicketDAO {
     @Override
     public Ticket getById(Long key) {
         String query = "SELECT * FROM tickets WHERE id=?";
-        return jdbcTemplate.queryForObject(query, (resultSet, i) -> {
-            return getTicketFromRS(resultSet);
+        return jdbcTemplate.query(query, rs -> {
+            if (rs.next()) {
+                return getTicketFromRS(rs);
+            } else {
+                return null;
+            }
         }, key);
     }
 

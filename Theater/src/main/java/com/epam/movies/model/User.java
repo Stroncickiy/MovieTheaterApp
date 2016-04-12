@@ -13,7 +13,6 @@ public class User {
     @XmlAttribute
     private Long id;
     @XmlAttribute
-    @JsonIgnore
     private String password;
     @XmlAttribute
     private String firstName;
@@ -86,6 +85,7 @@ public class User {
         this.birthDate = birthDate;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

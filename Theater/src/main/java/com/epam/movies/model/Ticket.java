@@ -117,4 +117,15 @@ public class Ticket {
     public void makeLucky() {
         this.isLucky =true;
     }
+
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", isLucky=" + isLucky +
+                ", realPrice=" + realPrice +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
 }

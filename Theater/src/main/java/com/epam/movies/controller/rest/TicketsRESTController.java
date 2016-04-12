@@ -35,17 +35,6 @@ public class TicketsRESTController {
         List<Ticket> all = ticketDAO.getAll();
         if (all.size() != 0) {
             byte[] bytes = TicketToPdfConverter.buildDocumentWithTickets(all);
-            httpResponse.getOutputStream().write(bytes);
-        } else {
-            httpResponse.sendError(500);
-        }
-    }
-
-    @RequestMapping(path = "mytickets", method = RequestMethod.GET, produces = "application/pdf", consumes = MediaType.ALL_VALUE)
-    public void allUserTicketsPdf(HttpServletResponse httpResponse) throws DocumentException, IOException {
-        List<Ticket> all = ticketDAO.getTicketsForUser(userService.getById(9));
-        if (all.size() != 0) {
-            byte[] bytes = TicketToPdfConverter.buildDocumentWithTickets(all);
             httpResponse.setContentType("application/pdf");
             httpResponse.getOutputStream().write(bytes);
         } else {
@@ -53,16 +42,6 @@ public class TicketsRESTController {
         }
     }
 
-    @RequestMapping(path = "ticket/{ticketId}", method = RequestMethod.GET, produces = "application/pdf", consumes = MediaType.ALL_VALUE)
-    public void ticketPdf(HttpServletResponse httpResponse, @PathVariable Long ticketId) throws DocumentException, IOException {
-        Ticket ticket = ticketDAO.getById(ticketId);
-        if (ticket != null) {
-            byte[] bytes = TicketToPdfConverter.buildDocumentWithTicket(ticket);
-            httpResponse.getOutputStream().write(bytes);
-        } else {
-            httpResponse.sendError(500);
-        }
-    }
 
     @RequestMapping(path = "ticket", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Ticket>> allTicketsJson() {
@@ -71,6 +50,19 @@ public class TicketsRESTController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(all, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(path = "ticket/{ticketId}", method = RequestMethod.GET, produces = "application/pdf", consumes = MediaType.ALL_VALUE)
+    public void ticketPdf(HttpServletResponse httpResponse, @PathVariable Long ticketId) throws DocumentException, IOException {
+        Ticket ticket = ticketDAO.getById(ticketId);
+        if (ticket != null) {
+            byte[] bytes = TicketToPdfConverter.buildDocumentWithTicket(ticket);
+            httpResponse.setContentType("application/pdf");
+            httpResponse.getOutputStream().write(bytes);
+        } else {
+            httpResponse.sendError(500);
+        }
     }
 
 

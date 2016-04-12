@@ -4,6 +4,10 @@ import com.epam.movies.converters.LocalDateConverter;
 import com.epam.movies.httpconverters.TicketToPdfHttpConverter;
 import com.epam.movies.service.impl.UserDetailsServiceImpl;
 import com.epam.movies.util.ProcessExecutor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -20,6 +24,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -245,4 +250,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         converters.add(new TicketToPdfHttpConverter());
         super.configureMessageConverters(converters);
     }
+
+    @Bean(name = "OBJECT_MAPPER_BEAN")
+    public ObjectMapper jsonObjectMapper() {
+        return Jackson2ObjectMapperBuilder.json()
+                .serializationInclusion(JsonInclude.Include.NON_NULL) // Don’t include null values
+                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS) //ISODate
+                .modules(new JSR310Module())
+                .build();
+    }
+
 }
