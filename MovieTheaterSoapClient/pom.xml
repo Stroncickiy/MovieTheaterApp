@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.epam.jamp</groupId>
+    <artifactId>movietheater-soap-client</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <spring.version>4.2.4.RELEASE</spring.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+            <version>2.1.4.RELEASE</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.12.3</version>
+                <executions>
+                    <execution>
+                        <id>gen-user-service-classes</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaLanguage>WSDL</schemaLanguage>
+                            <generatePackage>com.epam.movietheater.generated.users</generatePackage>
+                            <schemas>
+                                <schema>
+                                    <url>http://localhost:8080/ws/userService.wsdl</url>
+                                </schema>
+                            </schemas>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>gen-event-service-classes</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaLanguage>WSDL</schemaLanguage>
+                            <generatePackage>com.epam.movietheater.generated.events</generatePackage>
+                            <schemas>
+                                <schema>
+                                    <url>http://localhost:8080/ws/eventService.wsdl</url>
+                                </schema>
+                            </schemas>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
